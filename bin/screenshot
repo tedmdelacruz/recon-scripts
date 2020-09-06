@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+
+set -e
+
+cli_help(){
+    echo "
+███████  ██████ ██████  ███████ ███████ ███    ██ ███████ ██   ██  ██████  ████████ 
+██      ██      ██   ██ ██      ██      ████   ██ ██      ██   ██ ██    ██    ██    
+███████ ██      ██████  █████   █████   ██ ██  ██ ███████ ███████ ██    ██    ██    
+     ██ ██      ██   ██ ██      ██      ██  ██ ██      ██ ██   ██ ██    ██    ██    
+███████  ██████ ██   ██ ███████ ███████ ██   ████ ███████ ██   ██  ██████     ██    
+    
+
+Custom screenshot and analysis script using aquatone
+
+Usage: screenshot path/to/recon path/to/chromium"
+exit 1
+}
+
+analyze(){
+    echo "[ANALYZING] $1 ..."
+    cat $1 | aquatone -ports=small -chrome-path=$2 -out $3
+}
+
+if [ -z $1 ]; then
+    cli_help
+fi
+
+RECON_DIR=$1
+CHROME_PATH=$2
+
+if [ ! -d "$RECON_DIR" ]; then
+    echo "Directory '$RECON_DIR' does not exist"
+    cli_help
+fi
+
+if [ ! $CHROME_PATH ]; then
+    echo "Chrome binary is required"
+    cli_help
+fi
+
+if [ ! -f $CHROME_PATH ]; then
+    echo "Chrome binary does not exist"
+    cli_help
+fi
+
+echo "------------------------------"
+echo "[RECON DIRECTORY] $RECON_DIR"
+echo "[CHROME BINARY] $CHROME_PATH"
+echo "[TARGETS FOUND]"
+echo "$(ls $RECON_DIR)"
+echo "------------------------------"
+
+cd $RECON_DIR
+
+# Loop over targets
+for target in *; do 
+    [ -d $target ] || continue
+
+    # Check for subdomains list
+    subdomains_dir="$target/subdomains"
+    if [ ! -d $subdomains_dir ]; then
+        echo "$subdomains_dir not found, skipping..."
+        echo "------------------------------"
+        continue
+    fi
+
+    # Run analysis
+    subdomains_list=$(find $subdomains_dir -type f -name *.txt -print | sort -nr | head -1)
+    if [ ! $subdomains_list ]; then
+        echo "No subdomains list found for '$target', skipping..."
+        echo "------------------------------"
+        continue
+    fi
+    results_dir="$target/analysis"
+    if [ ! -d $results_dir ]; then
+        mkdir $results_dir
+    fi
+    analyze $subdomains_list $CHROME_PATH $results_dir
+    echo "------------------------------"
+done
+
+echo ""
+echo "[DONE]"

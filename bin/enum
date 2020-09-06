@@ -11,14 +11,14 @@ cli_help(){
 ███████ ██   ████  ██████  ██      ██ 
 
     
-Custom automatic subdomain enumeration tool using amass
+Custom subdomain enumeration script using amass
 
 Usage: enum path/to/recon [path/to/amass_config.ini]"
 exit 1
 }
 
 enum_domains(){
-    cmd="amass enum -df $1"
+    cmd="amass enum -df $1 || true"
     if [ $2 ]; then
         cmd="$cmd -config $2"
     fi
@@ -55,7 +55,6 @@ echo "[AMASS CONFIG FILE] $( if [ $AMASS_CONFIG ]; then echo $AMASS_CONFIG; else
 echo "[TARGETS FOUND]"
 echo "$(ls $RECON_DIR)"
 echo "------------------------------"
-echo ""
 
 cd $RECON_DIR
 
@@ -70,6 +69,7 @@ for target in *; do
     domains_list="$target/domains.txt"
     if [ ! -f $domains_list ]; then
         echo "$domains_list not found, skipping..."
+        echo "------------------------------"
         continue
     fi
     enum_domains $domains_list $AMASS_CONFIG
@@ -81,7 +81,6 @@ for target in *; do
     fi
     write_enum_results $domains_list "$subdomains_dir/$results_filename"
 
-    echo ""
     echo "------------------------------"
 done
 
