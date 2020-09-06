@@ -19,7 +19,7 @@ exit 1
 
 analyze(){
     echo "[ANALYZING] $1 ..."
-    cat $1 | aquatone -ports=80,443,20,21,135,8000,8080,8443 -resolution=800,600 -chrome-path=$2 -out $3
+    cat $1 | aquatone -debug -ports=80,443,20,21,135,8000,8080,8443 -resolution=800,600 -chrome-path=$2 -out $3
 }
 
 if [ -z $1 ]; then
