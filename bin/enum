@@ -3,7 +3,15 @@
 set -e
 
 cli_help(){
-    echo "Custom automatic subdomain enumeration tool using amass
+    echo "
+███████ ███    ██ ██    ██ ███    ███ 
+██      ████   ██ ██    ██ ████  ████ 
+█████   ██ ██  ██ ██    ██ ██ ████ ██ 
+██      ██  ██ ██ ██    ██ ██  ██  ██ 
+███████ ██   ████  ██████  ██      ██ 
+
+    
+Custom automatic subdomain enumeration tool using amass
 
 Usage: enum path/to/recon [path/to/amass_config.ini]"
 exit 1
