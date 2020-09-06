@@ -18,10 +18,11 @@ exit 1
 }
 
 enum_domains(){
-    cmd="amass enum -df $1 || true"
+    cmd="amass enum -df $1"
     if [ $2 ]; then
         cmd="$cmd -config $2"
     fi
+    cmd="$cmd || true"
     echo "[RUNNING] $cmd"
     $cmd
 }
