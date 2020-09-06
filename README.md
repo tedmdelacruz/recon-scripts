@@ -13,7 +13,7 @@
 This is the way I organize my recon loot. I just feed this directory to the tools here.
 
 ```
-Recon Directory
+recon
 ├── target1
 │   ├── domains.txt
 │   └── subdomains

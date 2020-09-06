@@ -3,11 +3,25 @@
 set -e
 
 cli_help(){
-    echo "
-Custom automatic subdomain enumeration tool using amass
+    echo "Custom automatic subdomain enumeration tool using amass
 
 Usage: enum path/to/recon [path/to/amass_config.ini]"
 exit 1
+}
+
+enum_domains(){
+    cmd="amass enum -df $1"
+    if [ $2 ]; then
+        cmd="$cmd -config $2"
+    fi
+    echo "[RUNNING] $cmd"
+    $cmd
+}
+
+write_enum_results(){
+    cmd="amass db -names -d $1 | sort | uniq > $2"
+    echo "[RUNNING] $cmd"
+    $cmd
 }
 
 if [ -z $1 ]; then
@@ -37,6 +51,8 @@ echo ""
 
 cd $RECON_DIR
 
+results_filename="$(date +"%Y%m%d").txt"
+
 # Loop over targets
 for target in *; do 
     [ -d $target ] || continue
@@ -48,13 +64,17 @@ for target in *; do
         echo "$domains_list not found, skipping..."
         continue
     fi
+    enum_domains $domains_list $AMASS_CONFIG
 
-    cmd="amass enum -df $domains_list"
-    if [ $AMASS_CONFIG ]; then
-        cmd="$cmd -config $AMASS_CONFIG"
+    # Write enum results
+    subdomains_dir="$target/subdomains"
+    if [ ! -d $subdomains_dir ]; then
+        mkdir $subdomains_dir
     fi
-    echo "[RUNNING] $cmd"
-    $cmd
+    write_enum_results $domains_list "$subdomains_dir/$results_filename"
+
+    echo ""
+    echo "------------------------------"
 done
 
 echo ""
