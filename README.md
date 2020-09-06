@@ -27,27 +27,29 @@ recon
 .
 ```
 
-## Enumerate subdomains of targets
-- scan through `~/recon` folder for targets using `amass enum -df <subdomains>`
+## [enum] Enumerate subdomains of targets
+- scan through `recon` folder for targets using `amass enum -df <subdomains>`
 - write results to respective `subdomains/` folders of targets using `amass db -names -df <subdomains> > YYYYMMDD.txt`
 - notify for new subdomains using Pushover
 
 Usage:
 ```
-enum
-
-Custom automatic subdomain enumeration tool using amass
-
-Usage: enum path/to/recon [path/to/amass_config.ini]
+enum path/to/recon [path/to/amass_config.ini]
 ```
 
 ## Scan for vulnerable storages
 
+- _TODO_
+
 ## Look for leaked credentials in VCS platforms
 
+- _TODO_
+
 ## Take screenshots and analyze subdomains
+- _TODO_
 - run `aquatone` against collected subdomains and write results to their respective `intel/` folders
 - configure aquatone to use `masscan` for scanning ports
 
 ## Monitor interesting files and web pages for changes
+- _TODO_
 - scan through `monitor/` folders for files to monitor file changes
