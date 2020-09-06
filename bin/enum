@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+set -e
+
+cli_help(){
+    echo "
+Custom automatic subdomain enumeration tool using amass
+
+Usage: enum path/to/recon [path/to/amass_config.ini]"
+exit 1
+}
+
+if [ -z $1 ]; then
+    cli_help
+fi
+
+RECON_DIR=$1
+AMASS_CONFIG=$2
+
+if [ ! -d "$RECON_DIR" ]; then
+    echo "Directory '$RECON_DIR' does not exist"
+    cli_help
+fi
+
+if [ $AMASS_CONFIG ] && [ ! -f $AMASS_CONFIG ]; then
+    echo "Configuration file '$AMASS_CONFIG' does not exist"
+    cli_help
+fi
+
+echo "------------------------------"
+echo "[RECON DIRECTORY] $RECON_DIR"
+echo "[AMASS CONFIG FILE] $( if [ $AMASS_CONFIG ]; then echo $AMASS_CONFIG; else echo "N/A"; fi )"
+echo "[TARGETS FOUND]"
+echo "$(ls $RECON_DIR)"
+echo "------------------------------"
+echo ""
+
+cd $RECON_DIR
+
+# Loop over targets
+for target in *; do 
+    [ -d $target ] || continue
+    echo "[DOMAINS OF TARGET] $target"
+
+    # Check for domains list
+    domains_list="$target/domains.txt"
+    if [ ! -f $domains_list ]; then
+        echo "$domains_list not found, skipping..."
+        continue
+    fi
+
+    cmd="amass enum -df $domains_list"
+    if [ $AMASS_CONFIG ]; then
+        cmd="$cmd -config $AMASS_CONFIG"
+    fi
+    echo "[RUNNING] $cmd"
+    $cmd
+done
+
+echo ""
+echo "[DONE]"
