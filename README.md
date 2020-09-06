@@ -6,7 +6,7 @@
 ██   ██ ███████  ██████  ██████  ██   ████       ███████  ██████ ██   ██ ██ ██         ██    ███████ 
 ```
                                                                                                      
-# Personal automated recon tools for bug bounty hunting
+# Personal recon scripts for bug bounty hunting
 
 ## Dependencies
 
@@ -53,10 +53,9 @@ enum path/to/recon [path/to/amass_config.ini]
 
 - _TODO_
 
-## Take screenshots and analyze subdomains
-- _TODO_
+## [screenshot] Take screenshots and analyze subdomains
 - run `aquatone` against collected subdomains and write results to their respective `intel/` folders
-- configure aquatone to use `masscan` for scanning ports
+- configure aquatone to use `masscan` for scanning ports _TODO_
 
 ## Monitor interesting files and web pages for changes
 - _TODO_
