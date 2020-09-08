@@ -19,18 +19,42 @@ exit 1
 
 enum_domains(){
     cmd="amass enum -df $1"
-    if [ $2 ]; then
-        cmd="$cmd -config $2"
-    fi
-    cmd="$cmd || true"
-    echo "[RUNNING] $cmd"
-    $cmd
+    if [ $2 ]; then cmd="$cmd -config $2"; fi
+    $($cmd || true)
 }
 
 write_enum_results(){
-    cmd="amass db -names -d $1 | sort | uniq > $2"
-    echo "[RUNNING] $cmd"
-    $cmd
+    amass db -names -df $1 || true | sort | uniq > $2
+}
+
+check_new_subdomains(){
+   new_subdomains=$(amass track -df $1 -last 2 $([ -z $2 ] && printf %s "config $2") | grep Found | awk '{print $2}') 
+   if [ -z "$new_subdomains" ];then
+       echo "$(tput setaf 1)No new subdomains found"
+   else
+       echo "$(tput setaf 2)New subdomains found: $(echo $new_subdomains | wc -w)"
+   fi
+   tput sgr0
+}
+
+scan_target(){
+    # Check for domains list
+    domains_list="$1/domains.txt"
+    if [ ! -f $domains_list ]; then
+        echo "$(tput setaf 1)$domains_list not found, skipping...$(tput sgr0)"
+        echo "------------------------------"
+        continue
+    fi
+    enum_domains $domains_list $AMASS_CONFIG
+
+    # Write enum results
+    subdomains_dir="$1/subdomains"
+    if [ ! -d $subdomains_dir ]; then
+        mkdir $subdomains_dir
+    fi
+    write_enum_results $domains_list "$subdomains_dir/$results_filename"
+    check_new_subdomains $domains_list $AMASS_CONFIG
+    echo "------------------------------"
 }
 
 if [ -z $1 ]; then
@@ -51,9 +75,9 @@ if [ $AMASS_CONFIG ] && [ ! -f $AMASS_CONFIG ]; then
 fi
 
 echo "------------------------------"
-echo "[RECON DIRECTORY] $RECON_DIR"
-echo "[AMASS CONFIG FILE] $( if [ $AMASS_CONFIG ]; then echo $AMASS_CONFIG; else echo "N/A"; fi )"
-echo "[TARGETS FOUND]"
+echo "[$(tput setaf 3)RECON DIRECTORY$(tput sgr0)] $RECON_DIR"
+echo "[$(tput setaf 3)AMASS CONFIG FILE$(tput sgr0)] $( if [ $AMASS_CONFIG ]; then echo $AMASS_CONFIG; else echo "N/A"; fi )"
+echo "[$(tput setaf 3)TARGETS FOUND$(tput sgr0)]"
 echo "$(ls $RECON_DIR)"
 echo "------------------------------"
 
@@ -64,25 +88,8 @@ results_filename="$(date +"%Y%m%d").txt"
 # Loop over targets
 for target in *; do 
     [ -d $target ] || continue
-    echo "[DOMAINS OF TARGET] $target"
-
-    # Check for domains list
-    domains_list="$target/domains.txt"
-    if [ ! -f $domains_list ]; then
-        echo "$domains_list not found, skipping..."
-        echo "------------------------------"
-        continue
-    fi
-    enum_domains $domains_list $AMASS_CONFIG
-
-    # Write enum results
-    subdomains_dir="$target/subdomains"
-    if [ ! -d $subdomains_dir ]; then
-        mkdir $subdomains_dir
-    fi
-    write_enum_results $domains_list "$subdomains_dir/$results_filename"
-
-    echo "------------------------------"
+    echo "[$(tput setaf 3)DOMAINS OF TARGET$(tput sgr0)] $target"
+    scan_target $target
 done
 
 echo ""
