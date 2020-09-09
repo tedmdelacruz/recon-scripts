@@ -20,7 +20,7 @@ exit 1
 enum_domains(){
     cmd="amass enum -df $1"
     if [ $2 ]; then cmd="$cmd -config $2"; fi
-    $($cmd || true)
+    $cmd || true
 }
 
 write_enum_results(){
@@ -61,11 +61,11 @@ if [ -z $1 ]; then
     cli_help
 fi
 
-RECON_DIR=$1
+TARGETS_DIR=$1
 AMASS_CONFIG=$2
 
-if [ ! -d "$RECON_DIR" ]; then
-    echo "Directory '$RECON_DIR' does not exist"
+if [ ! -d "$TARGETS_DIR" ]; then
+    echo "Directory '$TARGETS_DIR' does not exist"
     cli_help
 fi
 
@@ -75,20 +75,20 @@ if [ $AMASS_CONFIG ] && [ ! -f $AMASS_CONFIG ]; then
 fi
 
 echo "------------------------------"
-echo "[$(tput setaf 3)RECON DIRECTORY$(tput sgr0)] $RECON_DIR"
-echo "[$(tput setaf 3)AMASS CONFIG FILE$(tput sgr0)] $( if [ $AMASS_CONFIG ]; then echo $AMASS_CONFIG; else echo "N/A"; fi )"
-echo "[$(tput setaf 3)TARGETS FOUND$(tput sgr0)]"
-echo "$(ls $RECON_DIR)"
+echo "[$(tput setaf 3)Targets directory$(tput sgr0)] $TARGETS_DIR"
+echo "[$(tput setaf 3)Amass config file$(tput sgr0)] $( if [ $AMASS_CONFIG ]; then echo $AMASS_CONFIG; else echo "N/A"; fi )"
+echo "[$(tput setaf 3)Targets found$(tput sgr0)]"
+echo "$(ls $TARGETS_DIR)"
 echo "------------------------------"
 
-cd $RECON_DIR
+cd $TARGETS_DIR
 
 results_filename="$(date +"%Y%m%d").txt"
 
 # Loop over targets
 for target in *; do 
     [ -d $target ] || continue
-    echo "[$(tput setaf 3)DOMAINS OF TARGET$(tput sgr0)] $target"
+    echo "[$(tput setaf 3)Enumerating subdomains of target$(tput sgr0)] $target"
     scan_target $target
 done
 
