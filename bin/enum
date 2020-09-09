@@ -24,7 +24,7 @@ enum_domains(){
 }
 
 write_enum_results(){
-    amass db -names -df $1 || true | sort | uniq > $2
+    amass db -names -df $1 | sort | uniq > $2 || true
 }
 
 check_new_subdomains(){
