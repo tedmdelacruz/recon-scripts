@@ -18,8 +18,8 @@ exit 1
 }
 
 enum_domains(){
-    cmd="amass enum -df $1"
-    if [ $2 ]; then cmd="$cmd -config $2"; fi
+    cmd="amass enum -df $1 -dir $2"
+    if [ $3 ]; then cmd="$cmd -config $3"; fi
     $cmd || true
 }
 
@@ -45,7 +45,12 @@ scan_target(){
         echo "------------------------------"
         continue
     fi
-    enum_domains $domains_list $AMASS_CONFIG
+    # Store results
+    amass_dir="$1/amass"
+    if [ ! -d $amass_dir ]; then
+        mkdir $amass_dir
+    fi
+    enum_domains $domains_list $amass_dir $AMASS_CONFIG
 
     # Write enum results
     subdomains_dir="$1/subdomains"
@@ -76,7 +81,7 @@ fi
 
 echo "------------------------------"
 echo "[$(tput setaf 3)Targets directory$(tput sgr0)] $TARGETS_DIR"
-echo "[$(tput setaf 3)Amass config file$(tput sgr0)] $( if [ $AMASS_CONFIG ]; then echo $AMASS_CONFIG; else echo "N/A"; fi )"
+echo "[$(tput setaf 3)Amass config file$(tput sgr0)] $( if [ $AMASS_CONFIG ]; then echo $AMASS_CONFIG; else echo "-"; fi )"
 echo "[$(tput setaf 3)Targets found$(tput sgr0)]"
 echo "$(ls $TARGETS_DIR)"
 echo "------------------------------"
