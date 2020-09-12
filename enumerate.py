@@ -2,30 +2,28 @@
 import os
 import click
 import yaml
-from modules.util import info, good, bad, run, banner
+from modules.util import info, good, bad, run, initialize
 from modules.amass import Amass
 
+banner = """
+███████ ███    ██ ██    ██ ███    ███ 
+██      ████   ██ ██    ██ ████  ████ 
+█████   ██ ██  ██ ██    ██ ██ ████ ██ 
+██      ██  ██ ██ ██    ██ ██  ██  ██ 
+███████ ██   ████  ██████  ██      ██ 
+
+    
+Custom subdomain enumeration script using amass
+"""
 
 @click.command()
 @click.option("--config", default="config.yaml", help="Configuration file to use")
 @click.option("--target", default="all", help="Specific target in config to enumerate")
 def main(config, target):
-    """Enumerates and probes subdomains of a target using amass and httpx"""
-    banner()
+    """Enumerates subdomains of a target using amass"""
+    click.secho(banner, fg="blue")
     settings = yaml.safe_load(open(config, "r"))
-
-    if target == "all":
-        targets = settings["targets"]
-    elif target in settings["targets"]:
-        targets = settings["targets"][target]
-    else:
-        click.echo("%s Target %s not a valid target in %s" % (bad, target, config))
-        quit()
-
-    targets_dir = os.path.abspath(os.path.expanduser(settings["targets_dir"]))
-    click.echo("%s Targets directory: %s" % (info, targets_dir))
-    if not os.path.isdir(targets_dir):
-        os.mkdir(targets_dir)
+    targets, targets_dir = initialize(config, target)
 
     amass_config = os.path.abspath(os.path.expanduser(settings["amass_config_path"]))
     click.echo("%s Amass configuration file: %s" % (info, amass_config))
@@ -36,8 +34,6 @@ def main(config, target):
     click.echo("%s Targets found: %s" % (info, ",".join(targets)))
     for t in targets:
         target_dir = os.path.join(targets_dir, t)
-        if not os.path.isdir(target_dir):
-            os.mkdir(target_dir)
         amass_dir = os.path.join(target_dir, "amass")
         if not os.path.isdir(amass_dir):
             os.mkdir(amass_dir)
