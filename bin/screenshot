@@ -19,18 +19,18 @@ exit 1
 
 analyze(){
     echo "[ANALYZING] $1 ..."
-    cat $1 | aquatone -debug -ports=80,443,20,21,135,8000,8080,8443 -resolution=800,600 -chrome-path=$2 -out $3
+    cat $1 | aquatone -debug -ports=80,443 -resolution=800,600 -chrome-path=$2 -out $3
 }
 
 if [ -z $1 ]; then
     cli_help
 fi
 
-RECON_DIR=$1
+TARGETS_DIR=$1
 CHROME_PATH=$2
 
-if [ ! -d "$RECON_DIR" ]; then
-    echo "Directory '$RECON_DIR' does not exist"
+if [ ! -d "$TARGETS_DIR" ]; then
+    echo "Directory '$TARGETS_DIR' does not exist"
     cli_help
 fi
 
@@ -45,38 +45,32 @@ if [ ! -f $CHROME_PATH ]; then
 fi
 
 echo "------------------------------"
-echo "[RECON DIRECTORY] $RECON_DIR"
+echo "[TARGETS DIRECTORY] $TARGETS_DIR"
 echo "[CHROME BINARY] $CHROME_PATH"
 echo "[TARGETS FOUND]"
-echo "$(ls $RECON_DIR)"
+echo "$(ls $TARGETS_DIR)"
 echo "------------------------------"
 
-cd $RECON_DIR
+cd $TARGETS_DIR
 
 # Loop over targets
 for target in *; do 
     [ -d $target ] || continue
 
-    # Check for subdomains list
-    subdomains_dir="$target/subdomains"
-    if [ ! -d $subdomains_dir ]; then
-        echo "$subdomains_dir not found, skipping..."
+    # Check for http probes list
+    probes_file="$target/httpx.txt"
+    if [ ! -f $probes_file ]; then
+        echo "$probes_file not found, skipping..."
         echo "------------------------------"
         continue
     fi
 
     # Run analysis
-    subdomains_list=$(find $subdomains_dir -type f -name *.txt -print | sort -nr | head -1)
-    if [ ! $subdomains_list ]; then
-        echo "No subdomains list found for '$target', skipping..."
-        echo "------------------------------"
-        continue
-    fi
-    results_dir="$target/analysis"
+    results_dir="$target/screenshots"
     if [ ! -d $results_dir ]; then
         mkdir $results_dir
     fi
-    analyze $subdomains_list $CHROME_PATH $results_dir
+    analyze $probes_file $CHROME_PATH $results_dir
     echo "------------------------------"
 done
 
