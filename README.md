@@ -46,14 +46,43 @@ recon
 .
 ```
 
-## [enumerate.py] Enumerate and probe subdomains of targets
-- scan through `recon` folder for targets using `amass enum -df <subdomains>`
-- write results to respective `subdomains/` folders of targets using `amass db -names -df <subdomains> > path/to/target/subdomains.txt`
-- notify for new subdomains using Pushover _TODO_
+## Setup
 
-Usage:
 ```
-python3 enumerate.py [--target=foo] [--config=path/to/config.yaml]
+git clone https://github.com/tedmdelacruz/recon-scripts.git
+cd recon-scripts
+pip3 install -r requirements.txt
+```
+
+## Usage
+
+1. Rename config.yaml.example to config.yaml
+2. Adjust values in config.yaml accordingly
+
+## Enumerate subdomains of targets
+
+```
+Usage: enumerate.py [OPTIONS]
+
+  Enumerates subdomains of a target using amass
+
+Options:
+  --config TEXT  Configuration file to use
+  --target TEXT  Specific target in config to enumerate
+  --help         Show this message and exit
+```
+
+## Probe subdomains of targets
+
+```
+Usage: probe.py [OPTIONS]
+
+  Probes domains using HttpX
+
+Options:
+  --config TEXT  Configuration file to use
+  --target TEXT  Specific target in config to enumerate
+  --help         Show this message and exit
 ```
 
 ## Scan for vulnerable storages
