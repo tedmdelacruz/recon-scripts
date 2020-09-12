@@ -1,6 +1,7 @@
 import os
 import subprocess
 
+
 class Amass(object):
     """Python wrapper for amass cli"""
 
@@ -16,7 +17,6 @@ class Amass(object):
         with open(os.path.join(self.target_dir, self.domains_file), "w+") as f:
             f.writelines(domains)
 
-
     def enum_subdomains(self):
         cmd = ["amass", "enum", "-d", self.domains, "-dir", self.dir]
         if self.config:
@@ -31,4 +31,3 @@ class Amass(object):
     def track_subdomains(self):
         cmd = ["amass", "track", "-last", "2", "-d", self.domains, "-dir", self.dir]
         subprocess.run(cmd, check=True, capture_output=True)
-

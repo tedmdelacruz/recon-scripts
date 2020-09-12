@@ -16,6 +16,7 @@ banner = """
 Custom subdomain enumeration script using amass
 """
 
+
 @click.command()
 @click.option("--config", default="config.yaml", help="Configuration file to use")
 @click.option("--target", default="all", help="Specific target in config to enumerate")
@@ -29,7 +30,7 @@ def main(config, target):
     click.echo("%s Amass configuration file: %s" % (info, amass_config))
     if not os.path.isfile(amass_config):
         amass_config = None
-    
+
     # Loop over targets and create missing folders in targets directory accordingly
     click.echo("%s Targets found: %s" % (info, ",".join(targets)))
     for t in targets:
@@ -37,7 +38,12 @@ def main(config, target):
         amass_dir = os.path.join(target_dir, "amass")
         if not os.path.isdir(amass_dir):
             os.mkdir(amass_dir)
-        amass = Amass(settings["targets"][t]["domains"], dir=amass_dir, target_dir=target_dir, config=amass_config)
+        amass = Amass(
+            settings["targets"][t]["domains"],
+            dir=amass_dir,
+            target_dir=target_dir,
+            config=amass_config,
+        )
 
         click.echo("%s Enumerating subdomains of %s using amass enum..." % (run, t))
         amass.enum_subdomains()
@@ -45,12 +51,19 @@ def main(config, target):
 
         click.echo("%s Writing subdomains of %s using amass db..." % (run, t))
         amass.write_subdomains()
-        click.echo("%s Done writing subdomains of %s into %s/subdomains.txt" % (good, t, target_dir))
+        click.echo(
+            "%s Done writing subdomains of %s into %s/subdomains.txt"
+            % (good, t, target_dir)
+        )
 
-        # @TODO
-        # click.echo("%s Checking for new subdomains of %s using amass track..." % (run, t))
-        # amass.track_subdomains()
-        # click.echo("%s Done writing subdomains of %s into %s/subdomains.txt" % (good, t, target_dir))
+        click.echo(
+            "%s Checking for new subdomains of %s using amass track..." % (run, t)
+        )
+        amass.track_subdomains()
+        click.echo(
+            "%s Done writing subdomains of %s into %s/subdomains.txt"
+            % (good, t, target_dir)
+        )
 
 
 if __name__ == "__main__":

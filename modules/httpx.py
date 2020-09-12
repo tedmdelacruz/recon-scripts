@@ -4,6 +4,7 @@ import subprocess
 
 class HttpX(object):
     """Simple Python wrapper for HttpX"""
+
     output_file = "httpx.txt"
 
     def __init__(self, hosts, output_dir):
