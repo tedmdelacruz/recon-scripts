@@ -6,11 +6,12 @@
 ██   ██ ███████  ██████  ██████  ██   ████       ███████  ██████ ██   ██ ██ ██         ██    ███████ 
 ```
                                                                                                      
-# Personal recon scripts for bug bounty hunting
+# Personal recon framework for bug bounty hunting
 
 ## Dependencies
 
 - [OWASP Amass](https://github.com/OWASP/Amass)
+- [httpx](https://github.com/projectdiscovery/httpx)
 - [Aquatone](https://github.com/michenriksen/aquatone)
 - [S3Scanner](https://github.com/OWASP/Amass)
 - [cloud_enum](https://github.com/initstring/cloud_enum)
@@ -23,26 +24,36 @@ This is the way I organize my recon loot. I just feed this directory to the tool
 ```
 recon
 ├── target1
+│   ├── amass/
+│   ├── intel/
+│   ├── monitor/
+│   ├── githound.txt
+│   ├── cloud_enum.txt
+│   ├── httpx.txt
 │   ├── domains.txt
-│   └── subdomains
-│       └── 20200101.txt
+│   └── subdomains.txt
 ├── target2
+│   ├── amass/
+│   ├── intel/
+│   ├── monitor/
+│   ├── githound.txt
+│   ├── cloud_enum.txt
+│   ├── httpx.txt
 │   ├── domains.txt
-│   └── subdomains
-│       ├── 20200102.txt
-│       └── 20200103.txt
+│   └── subdomains.txt
+│
 .
 .
 ```
 
-## [enum] Enumerate subdomains of targets
+## [enumerate.py] Enumerate and probe subdomains of targets
 - scan through `recon` folder for targets using `amass enum -df <subdomains>`
-- write results to respective `subdomains/` folders of targets using `amass db -names -df <subdomains> > YYYYMMDD.txt`
-- notify for new subdomains using Pushover
+- write results to respective `subdomains/` folders of targets using `amass db -names -df <subdomains> > path/to/target/subdomains.txt`
+- notify for new subdomains using Pushover _TODO_
 
 Usage:
 ```
-enum path/to/recon [path/to/amass_config.ini]
+python3 enumerate.py [--target=foo] [--config=path/to/config.yaml]
 ```
 
 ## Scan for vulnerable storages
