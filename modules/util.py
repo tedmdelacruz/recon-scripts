@@ -44,7 +44,7 @@ def initialize(config, target):
     if target == "all":
         targets = settings["targets"]
     elif target in settings["targets"]:
-        targets = settings["targets"][target]
+        targets = { target: settings["targets"][target] }
     else:
         click.echo("%s Target %s not a valid target in %s" % (bad, target, config))
         quit()
