@@ -40,7 +40,7 @@ def main(config, target):
             os.mkdir(amass_dir)
         amass = Amass(
             settings["targets"][t]["domains"],
-            dir=amass_dir,
+            amass_dir=amass_dir,
             target_dir=target_dir,
             config=amass_config,
         )
