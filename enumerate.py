@@ -49,15 +49,5 @@ def main(config, target):
         amass.enum_subdomains()
         click.echo("%s Done enumerating subdomains of %s" % (good, t))
 
-        click.echo(
-            "%s Checking for new subdomains of %s using amass track..." % (run, t)
-        )
-        amass.track_subdomains()
-        click.echo(
-            "%s Done writing subdomains of %s into %s/subdomains.txt"
-            % (good, t, target_dir)
-        )
-
-
 if __name__ == "__main__":
     main()
