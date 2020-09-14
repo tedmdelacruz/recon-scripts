@@ -49,5 +49,12 @@ def main(config, target):
         amass.enum_subdomains()
         click.echo("%s Done enumerating subdomains of %s" % (good, t))
 
+        click.echo("%s Writing subdomains of %s using amass db..." % (run, t))
+        amass.write_subdomains()
+        click.echo(
+            "%s Done writing subdomains of %s into %s/%s"
+            % (good, t, target_dir, amass.subdomains_file)
+        )
+
 if __name__ == "__main__":
     main()
