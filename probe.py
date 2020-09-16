@@ -4,22 +4,12 @@ import click
 from modules.util import info, good, bad, run, initialize
 from modules.httpx import HttpX
 
-banner = """
-██████╗ ██████╗  ██████╗ ██████╗ ███████╗
-██╔══██╗██╔══██╗██╔═══██╗██╔══██╗██╔════╝
-██████╔╝██████╔╝██║   ██║██████╔╝█████╗  
-██╔═══╝ ██╔══██╗██║   ██║██╔══██╗██╔══╝  
-██║     ██║  ██║╚██████╔╝██████╔╝███████╗
-╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
-"""
-
 
 @click.command()
 @click.option("--config", default="config.yaml", help="Configuration file to use")
 @click.option("--target", default="all", help="Specific target in config to enumerate")
 def main(config, target):
     """Probes domains using HttpX"""
-    click.secho(banner, fg="blue")
     targets, targets_dir = initialize(config, target)
 
     # Loop over targets and create missing folders in targets directory accordingly

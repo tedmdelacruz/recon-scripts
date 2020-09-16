@@ -5,24 +5,12 @@ import yaml
 from modules.util import info, good, bad, run, initialize
 from modules.amass import Amass
 
-banner = """
-███████ ███    ██ ██    ██ ███    ███ 
-██      ████   ██ ██    ██ ████  ████ 
-█████   ██ ██  ██ ██    ██ ██ ████ ██ 
-██      ██  ██ ██ ██    ██ ██  ██  ██ 
-███████ ██   ████  ██████  ██      ██ 
-
-    
-Custom subdomain enumeration script using amass
-"""
-
 
 @click.command()
 @click.option("--config", default="config.yaml", help="Configuration file to use")
 @click.option("--target", default="all", help="Specific target in config to enumerate")
 def main(config, target):
     """Enumerates subdomains of a target using amass"""
-    click.secho(banner, fg="blue")
     settings = yaml.safe_load(open(config, "r"))
     targets, targets_dir = initialize(config, target)
 
