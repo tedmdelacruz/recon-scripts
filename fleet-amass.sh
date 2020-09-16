@@ -37,7 +37,7 @@ axiom-select 'recon*'
 for target in *; do 
     [ -d $target ] || continue
 
-    domains_file="$target/domains.txt"
+    domains_file="$TARGETS_DIR/$target/domains.txt"
     if [ ! -f $domains_file ]; then
         echo "$domains_file not found, skipping..."
         echo "------------------------------"
@@ -45,7 +45,7 @@ for target in *; do
     fi
 
     # Run subdomain enumeration
-    results_dir="$target/fleet-scan"
+    results_dir="$TARGETS_DIR/$target/fleet-scan"
     if [ ! -d $results_dir ]; then
         mkdir $results_dir
     fi
