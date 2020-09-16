@@ -8,7 +8,7 @@ exit 1
 }
 
 analyze(){
-    echo "[ANALYZING] $1 ..."
+    echo "Fleet scanning $1 ..."
     axiom-scan $1 -m=amass -config=amass.ini -o="$2/fleet-amass.txt"
 }
 
@@ -23,11 +23,9 @@ if [ ! -d "$TARGETS_DIR" ]; then
     cli_help
 fi
 
-echo "------------------------------"
-echo "[TARGETS DIRECTORY] $TARGETS_DIR"
-echo "[TARGETS FOUND]"
+echo "Targets directory: $TARGETS_DIR"
+echo "Targets found:"
 echo "$(ls $TARGETS_DIR)"
-echo "------------------------------"
 
 cd $TARGETS_DIR
 
@@ -40,7 +38,6 @@ for target in *; do
     domains_file="$TARGETS_DIR/$target/domains.txt"
     if [ ! -f $domains_file ]; then
         echo "$domains_file not found, skipping..."
-        echo "------------------------------"
         continue
     fi
 
@@ -52,8 +49,7 @@ for target in *; do
     amass_domains="$results_dir/amass_domains.txt"
     cp $domains_file $amass_domains
     analyze $amass_domains $results_dir
-    echo "------------------------------"
 done
 
 echo ""
-echo "[DONE]"
+echo "Done."
