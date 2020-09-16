@@ -4,16 +4,9 @@ set -e
 
 cli_help(){
     echo "
-███████  ██████ ██████  ███████ ███████ ███    ██ ███████ ██   ██  ██████  ████████ 
-██      ██      ██   ██ ██      ██      ████   ██ ██      ██   ██ ██    ██    ██    
-███████ ██      ██████  █████   █████   ██ ██  ██ ███████ ███████ ██    ██    ██    
-     ██ ██      ██   ██ ██      ██      ██  ██ ██      ██ ██   ██ ██    ██    ██    
-███████  ██████ ██   ██ ███████ ███████ ██   ████ ███████ ██   ██  ██████     ██    
-    
+Screenshot and analysis script using aquatone
 
-Custom screenshot and analysis script using aquatone
-
-Usage: screenshot path/to/recon path/to/chromium"
+Usage: screenshot path/to/recon path/to/chromium [--use-fleet-scan]"
 exit 1
 }
 
@@ -22,32 +15,33 @@ analyze(){
     cat $1 | aquatone -debug -ports=80,443 -resolution=800,600 -chrome-path=$2 -out $3
 }
 
-if [ -z $1 ]; then
+if [[ -z $1 ]]; then
     cli_help
 fi
 
 TARGETS_DIR=$1
 CHROME_PATH=$2
+FLEET_SCAN=$3
 
-if [ ! -d "$TARGETS_DIR" ]; then
+if [[ ! -d "$TARGETS_DIR" ]]; then
     echo "Directory '$TARGETS_DIR' does not exist"
     cli_help
 fi
 
-if [ ! $CHROME_PATH ]; then
+if [[ ! $CHROME_PATH ]]; then
     echo "Chrome binary is required"
     cli_help
 fi
 
-if [ ! -f $CHROME_PATH ]; then
+if [[ ! -f $CHROME_PATH ]]; then
     echo "Chrome binary does not exist"
     cli_help
 fi
 
 echo "------------------------------"
-echo "[TARGETS DIRECTORY] $TARGETS_DIR"
-echo "[CHROME BINARY] $CHROME_PATH"
-echo "[TARGETS FOUND]"
+echo "Targets directory: $TARGETS_DIR"
+echo "Chrome binary: $CHROME_PATH"
+echo "Targets found:"
 echo "$(ls $TARGETS_DIR)"
 echo "------------------------------"
 
@@ -55,11 +49,15 @@ cd $TARGETS_DIR
 
 # Loop over targets
 for target in *; do 
-    [ -d $target ] || continue
+    [[ -d $target ]] || continue
 
     # Check for http probes list
-    probes_file="$target/httpx.txt"
-    if [ ! -f $probes_file ]; then
+    if [[ $FLEET_SCAN == "--use-fleet-scan" ]]; then
+        probes_file="$target/fleet-scan/fleet-amass.txt"
+    else
+        probes_file="$target/httpx.txt"
+    fi
+    if [[ ! -f $probes_file ]]; then
         echo "$probes_file not found, skipping..."
         echo "------------------------------"
         continue
@@ -67,7 +65,7 @@ for target in *; do
 
     # Run analysis
     results_dir="$target/screenshots"
-    if [ ! -d $results_dir ]; then
+    if [[ ! -d $results_dir ]]; then
         mkdir $results_dir
     fi
     analyze $probes_file $CHROME_PATH $results_dir
@@ -75,4 +73,4 @@ for target in *; do
 done
 
 echo ""
-echo "[DONE]"
+echo "Done."

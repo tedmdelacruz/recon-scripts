@@ -10,8 +10,6 @@ exit 1
 analyze(){
     echo "[ANALYZING] $1 ..."
     axiom-scan $1 -m=amass -config=amass.ini -o="$2/fleet-amass.txt"
-    axiom-scan "$2/fleet-amass.txt" -m=httpx -o="$2/fleet-httpx.txt"
-    axiom-scan "$2/fleet-httpx.txt" -m=nuclei -o="$2/fleet-cves.txt"
 }
 
 if [ -z $1 ]; then
@@ -51,7 +49,9 @@ for target in *; do
     if [ ! -d $results_dir ]; then
         mkdir $results_dir
     fi
-    analyze $domains_file $results_dir
+    amass_domains="$results_dir/amass_domains.txt"
+    cp $domains_file $amass_domains
+    analyze $amass_domains $results_dir
     echo "------------------------------"
 done
 
