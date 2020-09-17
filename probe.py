@@ -9,7 +9,7 @@ from modules.httpx import HttpX
 @click.option("--config", default="config.yaml", help="Configuration file to use")
 @click.option("--target", default="all", help="Specific target in config to enumerate")
 @click.option("--use-fleet-scan", default=True, help="Use fleet scan results")
-def main(config, target, is_fleet_scan):
+def main(config, target, use_fleet_scan):
     """Probes domains using HttpX"""
     targets, targets_dir = initialize(config, target)
 
@@ -18,7 +18,7 @@ def main(config, target, is_fleet_scan):
     for t in targets:
         target_dir = os.path.join(targets_dir, t)
         click.echo("%s Probing subdomains of %s..." % (run, t))
-        if is_fleet_scan:
+        if use_fleet_scan:
             subdomains_file = os.path.join(target_dir, "fleet-scan/fleet-amass.txt")
         else:
             subdomains_file = os.path.join(target_dir, "subdomains.txt")
