@@ -10,7 +10,7 @@ exit 1
 enumerate(){
     echo "Enumerating subdomains of $1..."
     tmp_outfile="$(date +'%d%m%Y').txt"
-    amass enum -v -config="$HOME/amass.ini" -df="$2/domains.txt" -o="$2/$tmp_outfile.txt"
+    amass enum -v -config="$HOME/amass.ini" -dir="$HOME/.amass" -df="$2/domains.txt" -o="$2/$tmp_outfile.txt"
     cat $tmp_outfile >> subdomains.txt
     sort -u -o subdomains.txt subdomains.txt
     rm $tmp_outfile
