@@ -6,12 +6,12 @@ cli_help(){
     echo "
 Screenshot and analysis script using aquatone
 
-Usage: screenshot path/to/recon path/to/chromium [--use-fleet-scan]"
+Usage: ./screenshot.sh path/to/targets path/to/chromium [--use-fleet-scan]"
 exit 1
 }
 
 analyze(){
-    echo "[ANALYZING] $1 ..."
+    echo "Analyzing $1 ..."
     cat $1 | aquatone -debug -ports=80,443 -resolution=800,600 -chrome-path=$2 -out $3
 }
 

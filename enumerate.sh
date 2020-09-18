@@ -3,13 +3,16 @@
 set -e
 
 cli_help(){
-    echo "Usage: fleet-amass path/to/targets"
+    echo "Usage: ./enumerate.sh path/to/targets"
 exit 1
 }
 
-analyze(){
-    echo "Fleet scanning $1 ..."
-    axiom-scan $1 -m=amass -config=amass.ini -o="$2/fleet-amass.txt"
+enumerate(){
+    echo "Enumerating subdomains of $1..."
+    tmp_outfile="$(date +'%d%m%Y').txt"
+    amass enum -v -config="$HOME/amass.ini" -df="$2/domains.txt" -o="$2/$tmp_outfile.txt"
+    cat $tmp_outfile >> subdomains.txt
+    sort -u -o subdomains.txt subdomains.txt
 }
 
 if [ -z $1 ]; then
@@ -29,8 +32,6 @@ echo "$(ls $TARGETS_DIR)"
 
 cd $TARGETS_DIR
 
-axiom-select 'recon*'
-
 # Loop over targets
 for target in *; do 
     [ -d $target ] || continue
@@ -41,14 +42,7 @@ for target in *; do
         continue
     fi
 
-    # Run subdomain enumeration
-    results_dir="$TARGETS_DIR/$target/fleet-scan"
-    if [ ! -d $results_dir ]; then
-        mkdir $results_dir
-    fi
-    amass_domains="$results_dir/amass_domains.txt"
-    cp $domains_file $amass_domains
-    analyze $amass_domains $results_dir
+    enumerate $target "$TARGETS_DIR/$target"
 done
 
 echo ""
