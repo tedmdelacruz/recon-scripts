@@ -22,9 +22,8 @@
 This is the way I organize my recon loot. I just feed this directory to the tools here.
 
 ```
-recon
+targets
 ├── target1
-│   ├── amass/
 │   ├── intel/
 │   ├── monitor/
 │   ├── githound.txt
@@ -33,7 +32,6 @@ recon
 │   ├── domains.txt
 │   └── subdomains.txt
 ├── target2
-│   ├── amass/
 │   ├── intel/
 │   ├── monitor/
 │   ├── githound.txt
@@ -51,25 +49,14 @@ recon
 ```
 git clone https://github.com/tedmdelacruz/recon-scripts.git
 cd recon-scripts
-pip3 install -r requirements.txt
 ```
-
-## Usage
-
-1. Rename config.yaml.example to config.yaml
-2. Adjust values in config.yaml accordingly
 
 ## Enumerate subdomains of targets
 
 ```
-Usage: enumerate.py [OPTIONS]
+Usage: ./enumerate.sh path/to/targets
 
-  Enumerates subdomains of a target using amass
-
-Options:
-  --config TEXT  Configuration file to use
-  --target TEXT  Specific target in config to enumerate
-  --help         Show this message and exit
+Enumerates subdomains of a directory of targets using amass
 ```
 
 ## Probe subdomains of targets
