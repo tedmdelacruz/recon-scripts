@@ -10,8 +10,8 @@ Usage: ./screenshot.sh path/to/targets path/to/chromium [--use-fleet-scan]"
 exit 1
 }
 
-analyze(){
-    echo "Analyzing $1 ..."
+screenshot(){
+    echo "Taking screenshots of $1 ..."
     cat $1 | aquatone -debug -ports=80,443 -resolution=800,600 -chrome-path=$2 -out $3
 }
 
@@ -51,21 +51,21 @@ for target in *; do
 
     # Check for http probes list
     if [[ $FLEET_SCAN == "--use-fleet-scan" ]]; then
-        probes_file="$target/fleet-scan/fleet-amass.txt"
+        httpx_file="$target/fleet-scan/fleet-amass.txt"
     else
-        probes_file="$target/httpx.txt"
+        httpx_file="$target/httpx.txt"
     fi
-    if [[ ! -f $probes_file ]]; then
-        echo "$probes_file not found, skipping..."
+    if [[ ! -f $httpx_file ]]; then
+        echo "$httpx_file not found, skipping..."
         continue
     fi
 
-    # Run analysis
+    # Take screenshots
     results_dir="$target/screenshots"
     if [[ ! -d $results_dir ]]; then
         mkdir $results_dir
     fi
-    analyze $probes_file $CHROME_PATH $results_dir
+    screenshot $probes_file $CHROME_PATH $results_dir
 done
 
 echo ""

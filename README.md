@@ -24,7 +24,7 @@ This is the way I organize my recon loot. I just feed this directory to the tool
 ```
 targets
 ├── target1
-│   ├── intel/
+│   ├── screenshots/
 │   ├── monitor/
 │   ├── githound.txt
 │   ├── cloud_enum.txt
@@ -32,7 +32,7 @@ targets
 │   ├── domains.txt
 │   └── subdomains.txt
 ├── target2
-│   ├── intel/
+│   ├── screenshots/
 │   ├── monitor/
 │   ├── githound.txt
 │   ├── cloud_enum.txt
@@ -49,6 +49,10 @@ targets
 ```
 git clone https://github.com/tedmdelacruz/recon-scripts.git
 cd recon-scripts
+
+# Initialize a paths.sh from paths.sh.example
+cp paths.sh.example paths.sh
+vim paths.sh
 ```
 
 ## Enumerate subdomains of targets
@@ -56,33 +60,31 @@ cd recon-scripts
 ```
 Usage: ./enumerate.sh path/to/targets
 
-Enumerates subdomains of a directory of targets using amass
+Enumerates subdomains of a targets using amass
 ```
 
 ## Probe subdomains of targets
 
 ```
-Usage: probe.py [OPTIONS]
+Usage: ./probe.sh path/to/targets
 
-  Probes domains using HttpX
-
-Options:
-  --config TEXT  Configuration file to use
-  --target TEXT  Specific target in config to enumerate
-  --help         Show this message and exit
+Probes subdomains of targets using httpx
 ```
 
 ## Scan for vulnerable storages
 
-- _TODO_
+```
+Usage: ./cloud_enum.sh path/to/targets
+
+Scans for vulnerable cloud containers using cloud_enum
+```
 
 ## Look for leaked credentials in VCS platforms
 
 - _TODO_
 
-## [screenshot] Take screenshots and analyze subdomains
-- run `aquatone` against collected subdomains and write results to their respective `intel/` folders
-- configure aquatone to use `masscan` for scanning ports _TODO_
+## Take screenshots and analyze subdomains
+- run `aquatone` against collected subdomains and write results to their respective `screenshots/` folders
 
 ## Monitor interesting files and web pages for changes
 - _TODO_

@@ -1,0 +1,3 @@
+TARGETS_DIR=path/to/targets
+CHROME_PATH=path/to/chrome
+CLOUD_ENUM_PATH=path/to/cloud_enum.py
