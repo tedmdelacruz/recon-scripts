@@ -8,12 +8,22 @@ exit 1
 }
 
 enumerate(){
-    echo "Enumerating subdomains of $1..."
-    tmp_outfile="$(date +'%d%m%Y').txt"
-    amass enum -v -config="$HOME/amass.ini" -dir="$HOME/.amass" -df="$2/domains.txt" -o="$2/$tmp_outfile.txt"
-    cat $tmp_outfile >> subdomains.txt
-    sort -u -o subdomains.txt subdomains.txt
-    rm $tmp_outfile
+    domains_file="$1/domains.txt"
+    if [ ! -f $domains_file ]; then
+        echo "$domains_file not found, skipping ..."
+        continue
+    fi
+
+    while IFS= read -r domain; do
+        [[ ! -z $domain ]] || continue
+        echo "Enumerating subdomains of $domain ..."
+        tmp_file="$1/$RANDOM.txt"
+        subdomains_file="$1/subdomains.txt"
+        amass enum -v -config="$HOME/amass.ini" -dir="$HOME/.amass" -d=$domain -o=$tmp_file
+        cat $tmp_file >> $subdomains_file
+        sort -u -o $subdomains_file $subdomains_file 
+        rm $tmp_file
+    done < "$domains_file"
 }
 
 if [ -z $1 ]; then
@@ -35,15 +45,8 @@ cd $TARGETS_DIR
 
 # Loop over targets
 for target in *; do 
-    [ -d $target ] || continue
-
-    domains_file="$TARGETS_DIR/$target/domains.txt"
-    if [ ! -f $domains_file ]; then
-        echo "$domains_file not found, skipping..."
-        continue
-    fi
-
-    enumerate $target "$TARGETS_DIR/$target"
+    [[ -d $target ]] || continue
+    enumerate "$TARGETS_DIR/$target"
 done
 
 echo ""
