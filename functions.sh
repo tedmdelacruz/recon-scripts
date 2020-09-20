@@ -11,7 +11,10 @@ enumerate_subdomains(){
 
 probe_subdomains(){
     echo "Probing subdomains using httpx..."
-    httpx -verbose -l "$1/subdomains.txt" -o "$1/httpx.txt"
+    httpx -verbose -l "$1/subdomains.txt" -o "$1/tmp_httpx.txt"
+    cat "$1/tmp_httpx.txt" >> "$1/httpx.txt"
+    sort -u -o "$1/httpx.txt" "$1/httpx.txt" 
+    rm -f "$1/httpx.txt"
 }
 
 cloud_bucket_enum(){

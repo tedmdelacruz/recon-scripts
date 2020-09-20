@@ -1,3 +1,6 @@
-TARGETS_DIR=path/to/targets
 CHROME_PATH=path/to/chrome
-CLOUD_ENUM_PATH=path/to/cloud_enum.py
+CLOUD_ENUM_PATH="$HOME/tools/cloud_enum/cloud_enum.py"
+SUBLIST3R_PATH="$HOME/tools/sublist3r/sublist3r.py"
+SUBDOMAINIZER_PATH="$HOME/tools/subdomainizer/SubDomainizer.py"
+S3SCANNER_PATH="$HOME/tools/s3scanner/s3scanner.py"
+NUCLEI_TEMPLATES_PATH="$HOME/tools/nuclei-templates"
