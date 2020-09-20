@@ -56,7 +56,7 @@ vim paths.sh
 ```
 
 ## Overview
-Manual reconnaisance tool that does the following to domains in a target:
+Manual reconnaissance tool that does the following to domains in a target:
 - Enumerate subdomains using sublist3r
 - Show GitHub dorking links @TODO
 - Scan using Subdomainizer
