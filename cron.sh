@@ -23,20 +23,17 @@ cd $TARGETS_DIR
 # Loop over targets
 for target in *; do 
     [[ -d $target ]] || continue
-
     target_dir="$TARGETS_DIR/$target"
-    domains_file="$target_dir/domains.txt"
-    while IFS= read -r domain; do
-        [[ ! -z $domain ]] || continue
-        enumerate_subdomains $domain $target_dir
-    done < "$domains_file"
-
-    probe_subdomains $target_dir
-    cloud_bucket_enum $target_dir
+    if [[ ! -f "$target_dir/httpx.txt" ]]; then
+        probe_subdomains $target_dir
+    fi
     crawl_urls $target_dir
+    xss_scan $target_dir
+    notify_xss $target_dir "basic_xss" $SLACK_ALERT_XSS_CHANNEL_ID
+    notify_xss $target_dir "top_15_xss" $SLACK_ALERT_XSS_CHANNEL_ID
     crawl_js $target_dir
-    nuclei_scan $target_dir
-    take_screenshots $target_dir
+    diff_handler $target_dir "js"
+    notify_changes $target_dir "js" $SLACK_ALERT_JS_FILES_CHANNEL_ID
 done
 
 echo ""

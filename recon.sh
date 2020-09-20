@@ -52,7 +52,7 @@ done < "$domains_file"
 
 probe_subdomains $target_dir
 cloud_bucket_enum $target_dir
-crawl_sites $target_dir
+crawl_urls $target_dir
 crawl_js $target_dir
 nuclei_scan $target_dir
 take_screenshots $target_dir
