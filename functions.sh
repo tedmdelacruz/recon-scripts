@@ -62,7 +62,7 @@ diff_handler(){
     if [[ ! -f "$1/$2.txt" ]]; then
         mv "$1/tmp_$2.txt" "$1/$2.txt"
     else
-        diff -u "$1/tmp_$2.txt" "$1/$2.txt" | tee "$1/$2.diff"
+        diff -u "$1/$2.txt" "$1/tmp_$2.txt" | tee "$1/$2.diff"
         rm -f "$1/$2.txt"
         mv "$1/tmp_$2.txt" "$1/$2.txt"
         sort -u -o "$1/$2.txt" "$1/$2.txt"
