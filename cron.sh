@@ -28,12 +28,10 @@ for target in *; do
         probe_subdomains $target_dir
     fi
     crawl_urls $target_dir
-    diff_handler $target_dir "js"
     xss_scan $target_dir
     notify_xss $target_dir "basic_xss" $SLACK_ALERT_XSS_CHANNEL_ID
     notify_xss $target_dir "top_15_xss" $SLACK_ALERT_XSS_CHANNEL_ID
     crawl_js $target_dir
-    diff_handler $target_dir "js"
     notify_changes $target_dir "js" $SLACK_ALERT_JS_FILES_CHANNEL_ID
 done
 

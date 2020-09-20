@@ -42,7 +42,7 @@ nuclei_scan(){
 
 xss_scan(){
     target_name=$(basename "$1")
-    echo "Scanning for xss of $target_name assets using nuclei..."
+    echo "Scanning for XSS on $target_name assets using nuclei..."
     nuclei -silent -pbar -l "$1/urls.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections/basic-xss-prober.yaml" -o "$1/basic_xss.txt"
     nuclei -silent -pbar -l "$1/urls.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections/top-15-xss.yaml" -o "$1/top_15_xss.txt"
 }
@@ -102,12 +102,12 @@ crawl_urls(){
     target_name=$(basename "$1")
     echo "Fetching urls of $target_name using hakrawler..."
     cat "$1/httpx.txt" | hakrawler -plain -wayback -sitemap -robots -urls -insecure -depth 1 > "$1/tmp_urls.txt"
-    diff_handler $target_dir "urls"
+    diff_handler $1 "urls"
 }
 
 crawl_js(){
     target_name=$(basename "$1")
     echo "Fetching JS files of $target_name using hakrawler..."
-    cat "$1/httpx.txt" | hakrawler -plain -js -insecure -depth 1 > "$1/tmp_js.txt"
-    diff_handler $target_dir "js"
+    cat "$1/httpx.txt" | hakrawler -plain -js -insecure -depth 1 | tee "$1/tmp_js.txt"
+    diff_handler $1 "js"
 }
