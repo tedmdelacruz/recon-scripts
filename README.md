@@ -55,37 +55,31 @@ cp paths.sh.example paths.sh
 vim paths.sh
 ```
 
-## Enumerate subdomains of targets
+## Manual reconnaisance of a single target
+Manual reconnaisance tool that does the following to domains in a target:
+- Enumerate subdomains using sublist3r
+- Show GitHub dorking links @TODO
+- Scan using Subdomainizer
+- Probe subdomains using httpx
+- Check cloud buckets using cloud_enum and S3scanner
+- Check VCS leaks using githound @TODO
+- Scan webpages using nuclei
+- Take screenshots using aquatone
 
+```bash
+$ ./recon.sh path/to/target_dir
+
+# target_dir requires a domains.txt file
+
+# Or source the paths.sh and functions.sh to access individual functions like so:
+
+$ source paths.sh; source functions.sh;
+$ enunmerate_subdomains path/to/target
+$ probe_subdomains path/to/target
+$ cloud_bucket_enum path/to/target
+$ nuclei_scan path/to/target
+$ take_screenshots path/to/target
 ```
-Usage: ./enumerate.sh path/to/targets
 
-Enumerates subdomains of a targets using amass
-```
-
-## Probe subdomains of targets
-
-```
-Usage: ./probe.sh path/to/targets
-
-Probes subdomains of targets using httpx
-```
-
-## Scan for vulnerable storages
-
-```
-Usage: ./cloud_enum.sh path/to/targets
-
-Scans for vulnerable cloud containers using cloud_enum
-```
-
-## Look for leaked credentials in VCS platforms
-
-- _TODO_
-
-## Take screenshots and analyze subdomains
-- run `aquatone` against collected subdomains and write results to their respective `screenshots/` folders
-
-## Monitor interesting files and web pages for changes
-- _TODO_
-- scan through `monitor/` folders for files to monitor file changes
+## TODO
+- Monitor interesting files and web pages for changes

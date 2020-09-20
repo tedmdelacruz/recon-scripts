@@ -6,6 +6,7 @@
 set -e
 
 source ./paths.sh
+source ./functions.sh
 
 target_dir=$1
 
@@ -42,51 +43,6 @@ if [[ ! -f $domains_file ]]; then
     echo "domains.txt not found in $1"
     exit 0
 fi
-
-enumerate_subdomains(){
-    echo "Enumerating subdomains of $1 using Sublist3r..."
-    python3 $SUBLIST3R_PATH -o "$2/sublist3r.txt" -d $1
-    echo "Enumerating subdomains of $1 using SubDomainizer..."
-    python3 $SUBDOMAINIZER_PATH -u $1 -o "$2/subdomainizer.txt"
-    cat "$2/sublist3r.txt" >> "$2/subdomains.txt"
-    cat "$2/subdomainizer.txt" >> "$2/subdomains.txt"
-    sort -u -o "$2/subdomains.txt" "$2/subdomains.txt"
-}
-
-probe_subdomains(){
-    echo "Probing subdomains using httpx..."
-    httpx -verbose -l "$1/subdomains.txt" -o "$1/httpx.txt"
-}
-
-cloud_bucket_enum(){
-    echo "Checking cloud buckets using cloud_enum..."
-    python3 $CLOUD_ENUM_PATH -kf "$1/subdomains.txt" -l "$1/cloud_enum.txt"
-    echo "Checking S3 buckets using S3Scanner..."
-    python3 $S3SANNER_PATH -o "$1/s3scanner.txt" "$1/subdomains.txt"
-}
-
-nuclei_scan(){
-    nuclei_dir="$target_dir/nuclei"
-    if [[ ! -d $nuclei_dir ]]; then
-        mkdir $nuclei_dir
-    fi
-    echo "Scanning for low-hanging fruits using nuclei..."
-    nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/cve" -o "$nuclei_dir/cve.txt"
-    nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/subdomain-takeover" -o "$nuclei_dir/subdomain-takeover.txt"
-    nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/default-credentials" -o "$nuclei_dir/default-credentials.txt"
-    nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections" -o "$nuclei_dir/generic-detections.txt"
-    nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/dns" -o "$nuclei_dir/dns.txt"
-    nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/files" -o "$nuclei_dir/files.txt"
-}
-
-take_screenshots(){
-    screenshots_dir="$target_dir/screenshots"
-    if [[ ! -d $screenshots_dir ]]; then
-        mkdir $screenshots_dir
-    fi
-    echo "Taking screenshots..."
-    cat $1 | aquatone -debug -ports=80,443 -resolution=800,600 -chrome-path=$CHROME_PATH -out $screenshots_dir
-}
 
 while IFS= read -r domain; do
     [[ ! -z $domain ]] || continue
