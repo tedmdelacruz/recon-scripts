@@ -102,10 +102,12 @@ crawl_urls(){
     target_name=$(basename "$1")
     echo "Fetching urls of $target_name using hakrawler..."
     cat "$1/httpx.txt" | hakrawler -plain -wayback -sitemap -robots -urls -insecure -depth 1 > "$1/tmp_urls.txt"
+    diff_handler $target_dir "urls"
 }
 
 crawl_js(){
     target_name=$(basename "$1")
     echo "Fetching JS files of $target_name using hakrawler..."
     cat "$1/httpx.txt" | hakrawler -plain -js -insecure -depth 1 > "$1/tmp_js.txt"
+    diff_handler $target_dir "js"
 }

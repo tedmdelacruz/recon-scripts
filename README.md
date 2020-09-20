@@ -10,11 +10,13 @@
 
 ## Dependencies
 
-- [OWASP Amass](https://github.com/OWASP/Amass)
+- [Sublist3r](https://github.com/aboul3la/Sublist3r)
+- [Subdominizer](https://github.com/nsonaniya2010/SubDomainizer)
 - [httpx](https://github.com/projectdiscovery/httpx)
 - [Aquatone](https://github.com/michenriksen/aquatone)
 - [S3Scanner](https://github.com/OWASP/Amass)
 - [cloud_enum](https://github.com/initstring/cloud_enum)
+- [hakrawler](https://github.com/hakluke/hakrawler)
 - [GitHound](https://github.com/tillson/git-hound)
 
 ## Directory framework
@@ -51,9 +53,9 @@ targets
 git clone https://github.com/tedmdelacruz/recon-scripts.git
 cd recon-scripts
 
-# Initialize a paths.sh from paths.sh.example
-cp paths.sh.example paths.sh
-vim paths.sh
+# Initialize a variables.sh from variables.sh.example
+cp variables.sh.example variables.sh
+vim variables.sh
 ```
 
 ## Overview
@@ -78,8 +80,8 @@ cd recon_scripts
 # Note: target_dir requires a domains.txt file
 $ ./recon.sh path/to/target_dir
 
-# Or source the paths.sh and functions.sh to access individual functions like so:
-$ source paths.sh; source functions.sh;
+# Or source the variables.sh and functions.sh to access individual functions like so:
+$ source variables.sh; source functions.sh;
 $ enumerate_subdomains path/to/target
 $ probe_subdomains path/to/target
 $ cloud_bucket_enum path/to/target
