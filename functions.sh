@@ -6,7 +6,7 @@ enumerate_subdomains(){
     cat "$2/sublist3r.txt" >> "$2/subdomains.txt"
     cat "$2/subdomainizer.txt" >> "$2/subdomains.txt"
     sort -u -o "$2/subdomains.txt" "$2/subdomains.txt"
-    rm -f sublist3r.txt subdomainizer.txt
+    rm -f "$2/sublist3r.txt $2/subdomainizer.txt"
 }
 
 probe_subdomains(){
@@ -29,13 +29,12 @@ nuclei_scan(){
     if [[ ! -d $nuclei_dir ]]; then
         mkdir $nuclei_dir
     fi
-    echo "Scanning for low-hanging fruits using nuclei..."
+    echo "Scanning for low-hanging issues using nuclei..."
     nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/cves" -o "$nuclei_dir/cves.txt"
     nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/subdomain-takeover" -o "$nuclei_dir/subdomain-takeover.txt"
     nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/default-credentials" -o "$nuclei_dir/default-credentials.txt"
-    nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections" -o "$nuclei_dir/generic-detections.txt"
     nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/dns" -o "$nuclei_dir/dns.txt"
-    nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/files" -o "$nuclei_dir/files.txt"
+    nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/workflows" -o "$nuclei_dir/workflows.txt"
 }
 
 take_screenshots(){
@@ -43,6 +42,26 @@ take_screenshots(){
     if [[ ! -d $screenshots_dir ]]; then
         mkdir $screenshots_dir
     fi
-    echo "Taking screenshots..."
+    echo "Taking screenshots using aquatone..."
     cat "$1/httpx.txt" | aquatone -debug -ports=80,443 -resolution=800,600 -chrome-path=$CHROME_PATH -out $screenshots_dir
+}
+
+crawl_sites(){
+    echo "Fetching urls using hakrawler..."
+    cat "$1/httpx.txt" | hakrawler -plain -wayback -sitemap -robots -urls -insecure -depth 1 > "$1/urls.txt"
+    echo "Scanning for low hanging vulnerabilities using nuclei..."
+    nuclei -pbar -l "$1/urls.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections/basic-xss-prober.yaml" -o "$1/basic_xss.txt"
+    nuclei -pbar -l "$1/urls.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections/top-15-xss.yaml" -o "$1/top_15_xss.txt"
+}
+
+crawl_js(){
+    echo "Fetching JS files using hakrawler..."
+    cat "$1/httpx.txt" | hakrawler -plain -js -insecure -depth 1 > "$1/tmp_js.txt"
+    if [[ ! -f "$1/js.txt" ]]; then
+        mv "$1/tmp_js.txt" "$1/js.txt"
+    else
+        diff -u "$1/tmp_js.txt" "$1/js.txt" > "$1/js.diff"
+        rm -f "$1/js.txt"
+        mv "$1/tmp_js.txt" "$1/js.txt"
+    fi
 }
