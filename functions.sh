@@ -1,10 +1,14 @@
 enumerate_subdomains(){
     echo "Enumerating subdomains of $1 using Sublist3r..."
     python3 $SUBLIST3R_PATH -o "$2/sublist3r.txt" -d $1
+    if [[ -f "$2/sublist3r.txt" ]]; then
+        cat "$2/sublist3r.txt" >> "$2/subdomains.txt"
+    fi
     echo "Enumerating subdomains of $1 using SubDomainizer..."
     python3 $SUBDOMAINIZER_PATH -u $1 -o "$2/subdomainizer.txt"
-    cat "$2/sublist3r.txt" >> "$2/subdomains.txt"
-    cat "$2/subdomainizer.txt" >> "$2/subdomains.txt"
+    if [[ -f "$2/subdomainizer.txt" ]]; then
+        cat "$2/subdomainizer.txt" >> "$2/subdomains.txt"
+    fi
     sort -u -o "$2/subdomains.txt" "$2/subdomains.txt"
     rm -f "$2/sublist3r.txt $2/subdomainizer.txt"
 }
@@ -108,6 +112,6 @@ crawl_urls(){
 crawl_js(){
     target_name=$(basename "$1")
     echo "Fetching JS files of $target_name using hakrawler..."
-    cat "$1/httpx.txt" | hakrawler -plain -js -insecure -depth 1 | tee "$1/tmp_js.txt"
+    cat "$1/httpx.txt" | hakrawler -plain -js -insecure -depth 1 > "$1/tmp_js.txt"
     diff_handler $1 "js"
 }
