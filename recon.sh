@@ -5,8 +5,9 @@
 
 set -e
 
-source ./paths.sh
-source ./functions.sh
+work_dir=$(dirname $0)
+source "$work_dir/paths.sh"
+source "$work_dir/functions.sh"
 
 target_dir=$1
 
