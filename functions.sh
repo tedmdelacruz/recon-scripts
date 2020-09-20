@@ -35,6 +35,8 @@ nuclei_scan(){
     nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/default-credentials" -o "$nuclei_dir/default-credentials.txt"
     nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/dns" -o "$nuclei_dir/dns.txt"
     nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/workflows" -o "$nuclei_dir/workflows.txt"
+    nuclei -pbar -l "$1/urls.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections/basic-xss-prober.yaml" -o "$1/basic_xss.txt"
+    nuclei -pbar -l "$1/urls.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections/top-15-xss.yaml" -o "$1/top_15_xss.txt"
 }
 
 take_screenshots(){
@@ -46,22 +48,42 @@ take_screenshots(){
     cat "$1/httpx.txt" | aquatone -debug -ports=80,443 -resolution=800,600 -chrome-path=$CHROME_PATH -out $screenshots_dir
 }
 
+diff_handler(){
+    sort -u -o "$1/tmp_$2.txt" "$1/tmp_$2.txt"
+    if [[ ! -f "$1/$2.txt" ]]; then
+        mv "$1/tmp_$2.txt" "$1/$2.txt"
+    else
+        diff -u "$1/tmp_$2.txt" "$1/$2.txt" > "$1/$2.diff"
+        rm -f "$1/$2.txt"
+        mv "$1/tmp_$2.txt" "$1/$2.txt"
+        sort -u -o "$1/$2.txt" "$1/$2.txt"
+    fi
+}
+
+notify_changes(){
+    target_name=$(basename "$1")
+    if [[ ! -s "$1/$2.diff" ]]; then
+        echo "No changes detected in $1/$2.txt"
+        return
+    fi
+    comment="Changes detected in $2.txt of $target_name"
+    curl -F file="@$1/$2.diff" \
+    -F "initial_comment=$comment" \
+    -F "channels=$3" \
+    -H "Authorization: Bearer $SLACKBOT_TOKEN" \
+    https://slack.com/api/files.upload
+}
+
 crawl_sites(){
     echo "Fetching urls using hakrawler..."
-    cat "$1/httpx.txt" | hakrawler -plain -wayback -sitemap -robots -urls -insecure -depth 1 > "$1/urls.txt"
-    echo "Scanning for low hanging vulnerabilities using nuclei..."
-    nuclei -pbar -l "$1/urls.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections/basic-xss-prober.yaml" -o "$1/basic_xss.txt"
-    nuclei -pbar -l "$1/urls.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections/top-15-xss.yaml" -o "$1/top_15_xss.txt"
+    cat "$1/httpx.txt" | hakrawler -plain -wayback -sitemap -robots -urls -insecure -depth 1 > "$1/tmp_urls.txt"
+    diff_handler $1 "urls"
+    notify_changes $1 "urls" $SLACK_NEW_URLS_CHANNEL_ID
 }
 
 crawl_js(){
     echo "Fetching JS files using hakrawler..."
     cat "$1/httpx.txt" | hakrawler -plain -js -insecure -depth 1 > "$1/tmp_js.txt"
-    if [[ ! -f "$1/js.txt" ]]; then
-        mv "$1/tmp_js.txt" "$1/js.txt"
-    else
-        diff -u "$1/tmp_js.txt" "$1/js.txt" > "$1/js.diff"
-        rm -f "$1/js.txt"
-        mv "$1/tmp_js.txt" "$1/js.txt"
-    fi
+    diff_handler $1 "js"
+    notify_changes $1 "js" $SLACK_NEW_JS_FILES_CHANNEL_ID
 }

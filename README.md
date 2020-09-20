@@ -25,7 +25,8 @@ This is the way I organize my recon loot. I just feed this directory to the tool
 targets
 ├── target1
 │   ├── screenshots/
-│   ├── monitor/
+│   ├── urls.txt
+│   ├── js.txt
 │   ├── githound.txt
 │   ├── cloud_enum.txt
 │   ├── httpx.txt
@@ -33,8 +34,8 @@ targets
 │   └── subdomains.txt
 ├── target2
 │   ├── screenshots/
-│   ├── monitor/
-│   ├── githound.txt
+│   ├── urls.txt
+│   ├── js.txt
 │   ├── cloud_enum.txt
 │   ├── httpx.txt
 │   ├── domains.txt
@@ -65,10 +66,12 @@ Manual reconnaissance tool that does the following to domains in a target:
 - Check VCS leaks using githound @TODO
 - Scan webpages using nuclei
 - Take screenshots using aquatone
+- Asset discovery using hakrawler
+- Notify for new URLs or JS files discovered via Slack
 
 # Usage:
 1. Clone this repository
-2. Copy `paths.sh.example` into `paths.sh` and amend its contents accordingly
+2. Copy `variables.sh.example` into `variables.sh` and amend its values accordingly
 
 ```bash
 cd recon_scripts

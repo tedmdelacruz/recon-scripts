@@ -6,7 +6,7 @@
 set -e
 
 work_dir=$(dirname $0)
-source "$work_dir/paths.sh"
+source "$work_dir/variables.sh"
 source "$work_dir/functions.sh"
 
 target_dir=$1
@@ -52,10 +52,10 @@ done < "$domains_file"
 
 probe_subdomains $target_dir
 cloud_bucket_enum $target_dir
-nuclei_scan $target_dir
-take_screenshots $target_dir
 crawl_sites $target_dir
 crawl_js $target_dir
+nuclei_scan $target_dir
+take_screenshots $target_dir
 
 echo ""
 echo "Done."
