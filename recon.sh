@@ -44,10 +44,13 @@ if [[ ! -f $domains_file ]]; then
 fi
 
 enumerate_subdomains(){
-    echo "Enumerating subdomains using Sublist3r..."
-    python3 $SUBLIST3R_PATH -v -d $1 -p 80,443,21,22 -o "$2/sublist3r.txt"
-    echo "Enumerating subdomains using SubDomainizer..."
+    echo "Enumerating subdomains of $1 using Sublist3r..."
+    python3 $SUBLIST3R_PATH -o "$2/sublist3r.txt" -d $1
+    echo "Enumerating subdomains of $1 using SubDomainizer..."
     python3 $SUBDOMAINIZER_PATH -u $1 -o "$2/subdomainizer.txt"
+    cat "$2/sublist3r.txt" >> "$2/subdomains.txt"
+    cat "$2/subdomainizer.txt" >> "$2/subdomains.txt"
+    sort -u -o "$2/subdomains.txt" "$2/subdomains.txt"
 }
 
 probe_subdomains(){
@@ -59,7 +62,7 @@ cloud_bucket_enum(){
     echo "Checking cloud buckets using cloud_enum..."
     python3 $CLOUD_ENUM_PATH -kf "$1/subdomains.txt" -l "$1/cloud_enum.txt"
     echo "Checking S3 buckets using S3Scanner..."
-    python3 $S3SANNER_PATH -kf "$1/subdomains.txt" -o "$1/s3_scan.txt"
+    python3 $S3SANNER_PATH -o "$1/s3scanner.txt" "$1/subdomains.txt"
 }
 
 nuclei_scan(){
