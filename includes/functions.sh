@@ -33,8 +33,7 @@ cloud_bucket_enum(){
 git_hound(){
     target_name=$(basename "$1")
     echo "Checking for possible leaked secrets of $target_name on GitHub using githound..."
-    git-hound --dig-files --dig-commits --many-results \
-    --languages common-languages.txt --threads 100 \
+    git-hound --dig-files --dig-commits --many-results --threads 100 \
     --subdomain-file "$1/subdomains.txt" | tee "$1/githound.txt"
 }
 
