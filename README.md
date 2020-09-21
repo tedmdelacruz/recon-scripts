@@ -8,19 +8,17 @@
 ![v0.0.2-alpha](https://img.shields.io/badge/version-0.0.2--alpha-green)
                                                                                                      
 # Personal recon framework for bug bounty hunting
-Collection of reconnaissance scripts does the following to domains in a target:
-- Enumerate subdomains using [Sublist3r](https://github.com/aboul3la/Sublist3r)
-- Scan using Subdomainizer [Subdominizer](https://github.com/nsonaniya2010/SubDomainizer)
+
+- Enumerate subdomains using [Sublist3r](https://github.com/aboul3la/Sublist3r) and [Subdominizer](https://github.com/nsonaniya2010/SubDomainizer)
 - Probe subdomains using [httpx](https://github.com/projectdiscovery/httpx)
 - Check cloud buckets using [cloud_enum](https://github.com/initstring/cloud_enum) and [S3Scanner](https://github.com/OWASP/Amass)
 - Scan webpages using [nuclei](https://github.com/projectdiscovery/nuclei)
 - Take screenshots using [Aquatone](https://github.com/michenriksen/aquatone)
 - Asset discovery using [hakrawler](https://github.com/hakluke/hakrawler) 
- - Notify for new URLs or JS files discovered via Slack
+- Scan for XSS from asset discovery using [XSStrike](https://github.com/s0md3v/XSStrike)
+- Notify for new URLs or JS files discovered via Slack
 
 ## Directory framework
-
-This is the way I organize my recon loot. I just feed this directory to the tools here.
 
 ```
 targets
