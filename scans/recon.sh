@@ -6,29 +6,29 @@ work_dir=$(dirname $0)
 source "$work_dir/../includes/vars.sh"
 source "$work_dir/../includes/functions.sh"
 
-target_dir=$1
 if [[ ! -d $1 ]]; then
     echo "$1 is not a valid directory"
     exit 0
 fi
+TARGET_DIR=$1
 
-domains_file="$1/domains.txt"
+domains_file="$TARGET_DIR/domains.txt"
 if [[ ! -f $domains_file ]]; then
-    echo "domains.txt not found in $1"
+    echo "domains.txt not found in $TARGET_DIR"
     exit 0
 fi
 
 while IFS= read -r domain; do
     [[ ! -z $domain ]] || continue
-    enumerate_subdomains $domain $target_dir
+    enumerate_subdomains $domain $TARGET_DIR
 done < "$domains_file"
 
-probe_subdomains $target_dir
-cloud_bucket_enum $target_dir
-crawl_urls $target_dir
-crawl_js $target_dir
-nuclei_scan $target_dir
-take_screenshots $target_dir
+probe_subdomains $TARGET_DIR
+cloud_bucket_enum $TARGET_DIR
+crawl_urls $TARGET_DIR
+crawl_js $TARGET_DIR
+nuclei_scan $TARGET_DIR
+take_screenshots $TARGET_DIR
 
 echo ""
 echo "Done."
