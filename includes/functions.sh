@@ -1,11 +1,11 @@
 enumerate_subdomains(){
     echo "Enumerating subdomains of $1 using Sublist3r..."
-    python3 $SUBLIST3R_PATH -o "$2/sublist3r.txt" -d $1
+    python3 $SUBLIST3R_PATH -o "$2/sublist3r.txt" -d $1 || true
     if [[ -f "$2/sublist3r.txt" ]]; then
         cat "$2/sublist3r.txt" >> "$2/subdomains.txt"
     fi
     echo "Enumerating subdomains of $1 using SubDomainizer..."
-    python3 $SUBDOMAINIZER_PATH -u $1 -o "$2/subdomainizer.txt"
+    python3 $SUBDOMAINIZER_PATH -u $1 -o "$2/subdomainizer.txt" || true
     if [[ -f "$2/subdomainizer.txt" ]]; then
         cat "$2/subdomainizer.txt" >> "$2/subdomains.txt"
     fi
