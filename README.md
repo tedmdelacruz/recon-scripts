@@ -62,8 +62,8 @@ vim vars.sh
 ```bash
 cd recon_scripts
 # Note: target_dir requires a domains.txt file
-$ scans/recon_all.sh path/to/targets_dir
-$ scans/recon.sh path/to/targets_dir/target
+$ scans/sweep.sh path/to/targets_dir
+$ scans/snipe.sh path/to/targets_dir/target
 ```
 
 3. Or source `vars.sh` and `functions.sh` to access individual functions like so:
