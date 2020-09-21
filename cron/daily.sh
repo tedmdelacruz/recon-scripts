@@ -7,7 +7,6 @@ source "$work_dir/../includes/vars.sh"
 source "$work_dir/../includes/functions.sh"
 
 TARGETS_DIR=$1
-
 if [ ! -d "$TARGETS_DIR" ]; then
     echo "Directory '$TARGETS_DIR' does not exist"
     exit 0
@@ -19,7 +18,6 @@ echo "$(ls $TARGETS_DIR)"
 
 cd $TARGETS_DIR
 
-# Loop over targets
 for target in *; do 
     [[ -d $target ]] || continue
     target_dir="$TARGETS_DIR/$target"

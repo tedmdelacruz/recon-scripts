@@ -7,7 +7,6 @@ source "$work_dir/../includes/vars.sh"
 source "$work_dir/../includes/functions.sh"
 
 target_dir=$1
-
 if [[ ! -d $1 ]]; then
     echo "$1 is not a valid directory"
     exit 0

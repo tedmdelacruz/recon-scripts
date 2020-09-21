@@ -54,7 +54,7 @@ xss_scan(){
 xss_strike(){
     # Note: configure blind XSS payload in xsstrike/core/config.py
     target_name=$(basename "$1")
-    echo "Scanning for XSS on $target_name using xsstrike..."
+    echo "Scanning for XSS on $target_name urls using xsstrike..."
     if [[ ! -f $XSSTRIKE_PATH ]]; then return; fi
     if [[ ! -d "$1/xsstrike" ]]; then
         mkdir "$1/xsstrike"
