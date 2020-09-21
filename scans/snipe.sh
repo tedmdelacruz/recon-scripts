@@ -27,7 +27,6 @@ done < "$domains_file"
 probe_subdomains $TARGET_DIR
 xss_strike $TARGET_DIR
 cloud_bucket_enum $TARGET_DIR
-git_hound $TARGET_DIR
 crawl_urls $TARGET_DIR
 crawl_js $TARGET_DIR
 nuclei_scan $TARGET_DIR
