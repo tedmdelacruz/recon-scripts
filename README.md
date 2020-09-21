@@ -5,6 +5,7 @@
 /_/   \___/\___/\____/_/ /_/  /____/\___/_/  /_/ .___/\__/____/  
                                               /_/                
 ```
+![v0.0.1-alpha](https://img.shields.io/badge/version-0.0.1--alpha-green)
                                                                                                      
 # Personal recon framework for bug bounty hunting
 Collection of reconnaissance scripts does the following to domains in a target:
