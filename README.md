@@ -5,29 +5,18 @@
 /_/   \___/\___/\____/_/ /_/  /____/\___/_/  /_/ .___/\__/____/  
                                               /_/                
 ```
-![v0.0.1-alpha](https://img.shields.io/badge/version-0.0.1--alpha-green)
+![v0.0.2-alpha](https://img.shields.io/badge/version-0.0.2--alpha-green)
                                                                                                      
 # Personal recon framework for bug bounty hunting
 Collection of reconnaissance scripts does the following to domains in a target:
-- Enumerate subdomains using sublist3r
-- Scan using Subdomainizer
-- Probe subdomains using httpx
-- Check cloud buckets using cloud_enum and S3scanner
-- Scan webpages using nuclei
-- Take screenshots using aquatone
-- Asset discovery using hakrawler
-- Notify for new URLs or JS files discovered via Slack
-
-## Dependencies
-
-- [Sublist3r](https://github.com/aboul3la/Sublist3r)
-- [Subdominizer](https://github.com/nsonaniya2010/SubDomainizer)
-- [httpx](https://github.com/projectdiscovery/httpx)
-- [Aquatone](https://github.com/michenriksen/aquatone)
-- [S3Scanner](https://github.com/OWASP/Amass)
-- [cloud_enum](https://github.com/initstring/cloud_enum)
-- [hakrawler](https://github.com/hakluke/hakrawler)
-- [GitHound](https://github.com/tillson/git-hound)
+- Enumerate subdomains using [Sublist3r](https://github.com/aboul3la/Sublist3r)
+- Scan using Subdomainizer [Subdominizer](https://github.com/nsonaniya2010/SubDomainizer)
+- Probe subdomains using [httpx](https://github.com/projectdiscovery/httpx)
+- Check cloud buckets using [cloud_enum](https://github.com/initstring/cloud_enum) and [S3Scanner](https://github.com/OWASP/Amass)
+- Scan webpages using [nuclei](https://github.com/projectdiscovery/nuclei)
+- Take screenshots using [Aquatone](https://github.com/michenriksen/aquatone)
+- Asset discovery using [hakrawler](https://github.com/hakluke/hakrawler) 
+ - Notify for new URLs or JS files discovered via Slack
 
 ## Directory framework
 
@@ -63,24 +52,25 @@ targets
 git clone https://github.com/tedmdelacruz/recon-scripts.git
 cd recon-scripts
 
-# Initialize a variables.sh from variables.sh.example
-cp variables.sh.example variables.sh
-vim variables.sh
+# Initialize a vars.sh from vars.sh.example
+cp vars.sh.example vars.sh
+vim vars.sh
 ```
 
 # Usage:
 1. Clone this repository
-2. Copy `variables.sh.example` into `variables.sh` and amend its values accordingly
+2. Copy `vars.sh.example` into `vars.sh` and amend its values accordingly
 
 ```bash
 cd recon_scripts
 # Note: target_dir requires a domains.txt file
-$ ./recon.sh path/to/target_dir
+$ scans/recon_all.sh path/to/targets_dir
+$ scans/recon.sh path/to/targets_dir/target
 ```
 
-3. Or source `variables.sh` and `functions.sh` to access individual functions like so:
+3. Or source `vars.sh` and `functions.sh` to access individual functions like so:
 ```
-$ source variables.sh; source functions.sh;
+$ source vars.sh; source functions.sh;
 $ enumerate_subdomains path/to/target
 $ probe_subdomains path/to/target
 $ cloud_bucket_enum path/to/target
