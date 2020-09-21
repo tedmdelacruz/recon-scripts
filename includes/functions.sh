@@ -70,7 +70,7 @@ xss_strike(){
         echo "Testing: $site"
         logfile=${site//[\/,:]/_}
         python3 $XSSTRIKE_PATH \
-            --blind --params --path --skip \
+            --crawl --blind --params --skip \
             --file-log-level GOOD --log-file "$1/xsstrike/$logfile.log" \
             -u $site || true
     done < "$1/urls.txt"
