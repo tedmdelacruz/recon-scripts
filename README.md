@@ -78,5 +78,4 @@ $ take_screenshots path/to/target
 
 ## TODO
 - Monitor interesting files and web pages for changes
-- Check for repository leaks using githound
 - Show GitHub dorking links
