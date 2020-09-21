@@ -1,12 +1,21 @@
 ```
-██████  ███████  ██████  ██████  ███    ██       ███████  ██████ ██████  ██ ██████  ████████ ███████ 
-██   ██ ██      ██      ██    ██ ████   ██       ██      ██      ██   ██ ██ ██   ██    ██    ██      
-██████  █████   ██      ██    ██ ██ ██  ██ █████ ███████ ██      ██████  ██ ██████     ██    ███████ 
-██   ██ ██      ██      ██    ██ ██  ██ ██            ██ ██      ██   ██ ██ ██         ██         ██ 
-██   ██ ███████  ██████  ██████  ██   ████       ███████  ██████ ██   ██ ██ ██         ██    ███████ 
+   ________  _________  ____     _______________(_)___  / /______
+  / ___/ _ \/ ___/ __ \/ __ \   / ___/ ___/ ___/ / __ \/ __/ ___/
+ / /  /  __/ /__/ /_/ / / / /  (__  ) /__/ /  / / /_/ / /_(__  ) 
+/_/   \___/\___/\____/_/ /_/  /____/\___/_/  /_/ .___/\__/____/  
+                                              /_/                
 ```
                                                                                                      
 # Personal recon framework for bug bounty hunting
+Collection of reconnaissance scripts does the following to domains in a target:
+- Enumerate subdomains using sublist3r
+- Scan using Subdomainizer
+- Probe subdomains using httpx
+- Check cloud buckets using cloud_enum and S3scanner
+- Scan webpages using nuclei
+- Take screenshots using aquatone
+- Asset discovery using hakrawler
+- Notify for new URLs or JS files discovered via Slack
 
 ## Dependencies
 
@@ -58,19 +67,6 @@ cp variables.sh.example variables.sh
 vim variables.sh
 ```
 
-## Overview
-Manual reconnaissance tool that does the following to domains in a target:
-- Enumerate subdomains using sublist3r
-- Show GitHub dorking links @TODO
-- Scan using Subdomainizer
-- Probe subdomains using httpx
-- Check cloud buckets using cloud_enum and S3scanner
-- Check VCS leaks using githound @TODO
-- Scan webpages using nuclei
-- Take screenshots using aquatone
-- Asset discovery using hakrawler
-- Notify for new URLs or JS files discovered via Slack
-
 # Usage:
 1. Clone this repository
 2. Copy `variables.sh.example` into `variables.sh` and amend its values accordingly
@@ -79,8 +75,10 @@ Manual reconnaissance tool that does the following to domains in a target:
 cd recon_scripts
 # Note: target_dir requires a domains.txt file
 $ ./recon.sh path/to/target_dir
+```
 
-# Or source the variables.sh and functions.sh to access individual functions like so:
+3. Or source `variables.sh` and `functions.sh` to access individual functions like so:
+```
 $ source variables.sh; source functions.sh;
 $ enumerate_subdomains path/to/target
 $ probe_subdomains path/to/target
@@ -91,3 +89,5 @@ $ take_screenshots path/to/target
 
 ## TODO
 - Monitor interesting files and web pages for changes
+- Check for repository leaks using githound
+- Show GitHub dorking links
