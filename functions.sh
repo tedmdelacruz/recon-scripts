@@ -51,6 +51,24 @@ xss_scan(){
     nuclei -silent -pbar -l "$1/urls.txt" -t "$NUCLEI_TEMPLATES_PATH/generic-detections/top-15-xss.yaml" -o "$1/top_15_xss.txt"
 }
 
+xss_strike(){
+    # Note: configure blind XSS payload in xsstrike/core/config.py
+    target_name=$(basename "$1")
+    echo "Scanning for XSS on $target_name using xsstrike..."
+    if [[ ! -f $XSSTRIKE_PATH ]]; then return; fi
+    if [[ ! -d "$1/xsstrike" ]]; then
+        mkdir "$1/xsstrike"
+    fi
+    while IFS= read -r site; do
+        echo "Testing: $site"
+        logfile=${site//[\/,:]/_}
+        python3 $XSSTRIKE_PATH \
+            --blind --path --skip \
+            --file-log-level INFO --log-file "$1/xsstrike/$logfile.log" \
+            -u $site
+    done < "$1/urls.txt"
+}
+
 take_screenshots(){
     screenshots_dir="$1/screenshots"
     if [[ ! -d $screenshots_dir ]]; then
