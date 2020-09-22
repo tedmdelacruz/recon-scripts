@@ -68,12 +68,12 @@ xss_strike(){
     fi
     while IFS= read -r site; do
         echo "Testing: $site"
-        logfile=${site//[\/,:]/_}
+        logfile="$1/xsstrike/${site//[\/,:]/_}.log"
         python3 $XSSTRIKE_PATH \
             --crawl --blind --params --skip \
             --file-log-level VULN --log-file $logfile \
             -u $site || true
-    done < "$1/httpx.txt"
+    done < "$1/urls.txt"
 }
 
 take_screenshots(){
