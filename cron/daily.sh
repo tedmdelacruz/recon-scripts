@@ -21,7 +21,7 @@ for target in *; do
         probe_subdomains $target_dir
     fi
     crawl_urls $target_dir
-    xss_scan $target_dir
+    xss_basic $target_dir
     notify_xss $target_dir "basic_xss" $SLACK_ALERT_XSS_CHANNEL_ID
     notify_xss $target_dir "top_15_xss" $SLACK_ALERT_XSS_CHANNEL_ID
     crawl_js $target_dir
