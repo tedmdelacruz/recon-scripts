@@ -7,7 +7,7 @@ fi
 
 git clone https://github.com/tedmdelacruz/recon-scripts.git "$HOME/.recon-scripts"
 
-if [ -z $RECON_SCRIPTS_PATH ]; then
+if [ ! -z $RECON_SCRIPTS_PATH ]; then
     exit 1
 fi
 
