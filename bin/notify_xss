@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source "$RECON_SCRIPTS_PATH/includes/vars.sh"
+
+target_name=$(basename "$1")
+if [[ ! -f "$1/$2.txt" ]]; then
+    exit 1;
+fi
+comment="XSS detected in $2.txt of $target_name"
+curl -F file="@$1/$2.txt" \
+-F "initial_comment=$comment" \
+-F "channels=$3" \
+-H "Authorization: Bearer $SLACKBOT_TOKEN" \
+https://slack.com/api/files.upload
+echo ""
