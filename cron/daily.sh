@@ -2,10 +2,6 @@
 
 set -e
 
-work_dir=$(dirname $0)
-source "$work_dir/../includes/vars.sh"
-source "$work_dir/../includes/functions.sh"
-
 TARGETS_DIR=$1
 if [ ! -d "$TARGETS_DIR" ]; then
     echo "Directory '$TARGETS_DIR' does not exist"

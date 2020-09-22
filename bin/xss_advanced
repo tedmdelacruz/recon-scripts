@@ -1,0 +1,19 @@
+#!/bin/bash
+
+source "$RECON_SCRIPTS_PATH/includes/vars.sh"
+
+# Note: configure blind XSS payload in xsstrike/core/config.py
+target_name=$(basename "$1")
+echo "Scanning for XSS on $target_name urls using xsstrike..."
+if [[ ! -f $XSSTRIKE_PATH ]]; then return; fi
+if [[ ! -d "$1/xsstrike" ]]; then
+    mkdir "$1/xsstrike"
+fi
+while IFS= read -r site; do
+    echo "Testing: $site"
+    logfile="$1/xsstrike/${site//[\/,:]/_}.log"
+    python3 $XSSTRIKE_PATH \
+        --crawl --blind --params --skip \
+        --file-log-level VULN --log-file $logfile \
+        -u $site || true
+done < "$1/urls.txt"

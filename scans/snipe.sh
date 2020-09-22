@@ -3,15 +3,16 @@
 
 set -e
 
-work_dir=$(dirname $0)
-source "$work_dir/../includes/vars.sh"
-source "$work_dir/../includes/functions.sh"
-
-if [[ ! -d $1 ]]; then
-    echo "$1 is not a valid directory"
+TARGET_DIR=$1
+if [[ -z $TARGET_DIR ]]; then
+    echo "A valid directory must be provided"
     exit 0
 fi
-TARGET_DIR=$1
+
+if [[ ! -d $TARGET_DIR ]]; then
+    echo "$TARGET_DIR is not a valid directory"
+    exit 0
+fi
 
 domains_file="$TARGET_DIR/domains.txt"
 if [[ ! -f $domains_file ]]; then

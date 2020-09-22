@@ -47,27 +47,25 @@ targets
 ## Setup
 
 ```
-git clone https://github.com/tedmdelacruz/recon-scripts.git
-cd recon-scripts
+bash <(curl -s https://raw.githubusercontent.com/tedmdelacruz/recon-scripts/master/configure)
 
 # Initialize a vars.sh from vars.sh.example
+cd .recon-scripts/includes
 cp vars.sh.example vars.sh
 vim vars.sh
 ```
 
 # Usage:
-1. Clone this repository
-2. Copy `vars.sh.example` into `vars.sh` and amend its values accordingly
-
-```bash
+1. Run predefined scans
+```sh
 cd recon_scripts
 # Note: target_dir requires a domains.txt file
 $ scans/sweep.sh path/to/targets_dir
 $ scans/snipe.sh path/to/targets_dir/target
 ```
 
-3. Or source `vars.sh` and `functions.sh` to access individual functions like so:
-```
+2. Or execute individual functions like so:
+```sh
 $ source vars.sh; source functions.sh;
 $ enumerate_subdomains path/to/target
 $ probe_subdomains path/to/target
