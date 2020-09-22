@@ -5,7 +5,8 @@
 /_/   \___/\___/\____/_/ /_/  /____/\___/_/  /_/ .___/\__/____/  
                                               /_/                
 ```
-![v0.0.3-alpha](https://img.shields.io/badge/version-0.0.3--alpha-green)
+
+![v0.1.0](https://img.shields.io/badge/version-0.1.0-brightgreen?style=for-the-badge&logo=python)
                                                                                                      
 # Personal recon framework for bug bounty hunting
 
