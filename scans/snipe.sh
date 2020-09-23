@@ -26,11 +26,11 @@ while IFS= read -r domain; do
 done < "$domains_file"
 
 probe_subdomains $TARGET_DIR
-xss_advanced $TARGET_DIR
 cloud_bucket_enum $TARGET_DIR
 crawl_urls $TARGET_DIR
 crawl_js $TARGET_DIR
 nuclei_scan $TARGET_DIR
+xss_advanced $TARGET_DIR
 take_screenshots $TARGET_DIR
 
 echo ""
