@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Scans all targets in the targets directory
 
 set -e
@@ -31,6 +31,8 @@ for target in *; do
     crawl_js $target_dir
     nuclei_scan $target_dir
     take_screenshots $target_dir
+
+    find . -size 0 -delete
 done
 
 echo ""

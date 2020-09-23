@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$RECON_SCRIPTS_PATH/includes/vars.sh"
+source "$HOME/.recon-scripts/vars.sh"
 
 target_name=$(basename "$1")
 echo "Scanning for XSS on $target_name assets using nuclei..."

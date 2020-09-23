@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Scans a single target in the targets directory
 
 set -e

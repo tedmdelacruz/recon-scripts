@@ -78,3 +78,5 @@ $ take_screenshots path/to/target
 ## TODO
 - Monitor interesting files and web pages for changes
 - Show GitHub dorking links
+- Setup port scanning using `dnmasscan`, `masscan`, and `nmap`
+- Support multithreading

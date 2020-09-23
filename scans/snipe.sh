@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Scans a single target in the targets directory
 
 set -e
@@ -32,6 +32,8 @@ crawl_js $TARGET_DIR
 nuclei_scan $TARGET_DIR
 xss_advanced $TARGET_DIR
 take_screenshots $TARGET_DIR
+
+find . -size 0 -delete
 
 echo ""
 echo "Done."

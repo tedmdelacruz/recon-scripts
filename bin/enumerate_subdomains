@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$RECON_SCRIPTS_PATH/includes/vars.sh"
+source "$HOME/.recon-scripts/vars.sh"
 
 usage(){
     echo "Usage: enumerate_subdomains domain.com path/to/output"

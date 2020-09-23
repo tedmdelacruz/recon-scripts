@@ -14,20 +14,17 @@ fi
 if [ "$SHELL" == "/usr/local/bin/zsh" ] || [ "$SHELL" == "/usr/bin/zsh" ] || [ "$SHELL" == "/bin/zsh" ]; then
     echo "Shell detected: zsh"
     echo "Installing recon-scripts to \$PATH..."
-    echo "export RECON_SCRIPTS_PATH=\"\$HOME/.recon-scripts\"" >>~/.zshrc
     echo "export PATH=\"\$PATH:\$RECON_SCRIPTS_PATH/bin\"" >>~/.zshrc
 elif [ "$SHELL" == "/bin/bash" ]; then
     echo "Shell detected: bash"
     echo "Installing recon-scripts to \$PATH..."
-    echo "export RECON_SCRIPTS_PATH=\"\$HOME/.recon-scripts\"" >>~/.bashrc
     echo "export PATH=\"\$PATH:\$RECON_SCRIPTS_PATH/bin\"" >>~/.bashrc
 else
     echo "Could not detect shell"
     echo "Please add the following to your shell startup file"
-    echo "export RECON_SCRIPTS_PATH=\"\$HOME/.recon-scripts\""
     echo "export PATH=\"\$PATH:\$RECON_SCRIPTS_PATH/bin\""
 fi
 
 echo ""
-echo "Please configure vars.sh from $RECON_SCRIPTS_PATH/includes/vars.sh.example"
+echo "Please configure vars.sh from $HOME/.recon-scripts/vars.sh.example"
 echo "then restart your shell with exec \$SHELL"

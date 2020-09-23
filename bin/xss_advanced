@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$RECON_SCRIPTS_PATH/includes/vars.sh"
+source "$HOME/.recon-scripts/vars.sh"
 
 # Note: configure blind XSS payload in xsstrike/core/config.py
 target_name=$(basename "$1")
