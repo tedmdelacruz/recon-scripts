@@ -6,7 +6,7 @@
                                               /_/                
 ```
 
-![v0.2.0](https://img.shields.io/badge/version-0.2.0-brightgreen?style=for-the-badge&logo=python)
+![v0.2.0](https://img.shields.io/badge/version-0.2.0-brightgreen?style=for-the-badge)
                                                                                                      
 # A simple recon framework for bug bounty hunting
 
@@ -19,11 +19,19 @@
 - Scan for XSS from asset discovery using [XSStrike](https://github.com/s0md3v/XSStrike)
 - Notify for new URLs or JS files discovered via Slack
 
-## Directory framework
-
+**The idea is to turn this:**
 ```
 targets
-├── target1
+├── tesla
+│   └── domains.txt
+├── shopify
+│   └── domains.txt
+```
+
+**into this:**
+```
+targets
+├── tesla
 │   ├── screenshots/
 │   ├── urls.txt
 │   ├── js.txt
@@ -32,7 +40,7 @@ targets
 │   ├── httpx.txt
 │   ├── domains.txt
 │   └── subdomains.txt
-├── target2
+├── shopify
 │   ├── screenshots/
 │   ├── urls.txt
 │   ├── js.txt
@@ -45,13 +53,12 @@ targets
 .
 ```
 
-![Sample](https://i.imgur.com/whOSnyq.png)
-
 ## Setup
 
+# Bash one-line setup. Installs recon-scripts to $HOME/.recon-scripts
 ```sh
-# Bash one-liner. Installs recon-scripts to $HOME/.recon-scripts
 bash <(curl -s https://raw.githubusercontent.com/tedmdelacruz/recon-scripts/master/configure)
+```
 
 # Initialize a vars.sh from vars.sh.example
 cd .recon-scripts
@@ -62,10 +69,8 @@ vim vars.sh
 # Usage:
 1. Run predefined scans
 ```sh
-cd recon_scripts
-# Note: target_dir requires a domains.txt file
+cd .recon_scripts
 $ scans/sweep.sh
-$ scans/snipe.sh target_in_targets_directory
 ```
 
 2. Or execute individual functions like so:
@@ -82,3 +87,4 @@ $ take_screenshots path/to/target
 - Show GitHub dorking links
 - Setup port scanning using `dnmasscan`, `masscan`, and `nmap`
 - Support multithreading
+- Add scaffolding script
