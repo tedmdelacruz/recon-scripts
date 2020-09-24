@@ -4,8 +4,7 @@
 
 set -e
 
-includes/start.sh
-
+source includes/start.sh
 for target in *; do 
     [[ -d $target ]] || continue
 

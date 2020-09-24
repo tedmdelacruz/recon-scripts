@@ -2,16 +2,18 @@
 
 source "$HOME/.recon-scripts/vars.sh"
 
-echo -e "${BRed} 
+echo -e "${BPurple} 
    ________  _________  ____     _______________(_)___  / /______
   / ___/ _ \/ ___/ __ \/ __ \   / ___/ ___/ ___/ / __ \/ __/ ___/
  / /  /  __/ /__/ /_/ / / / /  (__  ) /__/ /  / / /_/ / /_(__  ) 
 /_/   \___/\___/\____/_/ /_/  /____/\___/_/  /_/ .___/\__/____/  
-                                              /_/                $(cat "$HOME/.recon-scripts/VERSION")
+                                              /_/
 "
-echo -e "${BWhite}Crafted with <3 by tedm.infosec ${Reset}"
+echo -e "${BPurple}Version:${Reset} $(cat "$HOME/.recon-scripts/VERSION") "
+echo -e "${BPurple}Author:${Reset}  tedm.infosec"
+# echo -e "${BPurple}Contributors:${Reset} Your name here!"
 
-sleep 1
+sleep 2
 
 if [ ! -d "$TARGETS_DIR" ]; then
     echo -e "${Red}Directory '$TARGETS_DIR' does not exist${Reset}"

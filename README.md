@@ -68,8 +68,7 @@ $ scans/snipe.sh path/to/targets_dir/target
 
 2. Or execute individual functions like so:
 ```sh
-$ source vars.sh; source functions.sh;
-$ enumerate_subdomains path/to/target
+$ enumerate_subdomains domain.com path/to/targets_dir/target
 $ probe_subdomains path/to/target
 $ cloud_bucket_enum path/to/target
 $ nuclei_scan path/to/target
