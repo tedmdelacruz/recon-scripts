@@ -6,7 +6,7 @@
                                               /_/                
 ```
 
-![v0.2.0](https://img.shields.io/badge/version-0.2.0-brightgreen?style=flat)
+![v0.2.1](https://img.shields.io/badge/version-0.2.1-brightgreen?style=flat)
                                                                                                      
 # A simple recon framework for bug bounty hunting
 
@@ -24,8 +24,8 @@
 targets
 ├── tesla
 │   └── domains.txt
-├── shopify
-│   └── domains.txt
+└── shopify
+    └── domains.txt
 ```
 
 **into this:**
@@ -88,5 +88,5 @@ $ take_screenshots path/to/target
 - Show GitHub dorking links
 - Setup port scanning using `dnmasscan`, `masscan`, and `nmap`
 - Support multithreading
-- Add scaffolding script
+- Add script for scaffolding directories
 - Add reporting
