@@ -6,7 +6,7 @@
                                               /_/                
 ```
 
-![v0.2.0](https://img.shields.io/badge/version-0.2.0-brightgreen?style=flat)
+![v0.2.1](https://img.shields.io/badge/version-0.2.1-brightgreen?style=flat)
                                                                                                      
 # A simple recon framework for bug bounty hunting
 
@@ -24,8 +24,8 @@
 targets
 ├── tesla
 │   └── domains.txt
-├── shopify
-│   └── domains.txt
+└── shopify
+    └── domains.txt
 ```
 
 **into this:**
@@ -53,6 +53,12 @@ targets
 .
 ```
 
+\* Inspired by [lazyrecon](https://github.com/nahamsec/lazyrecon) by [nahamsec](https://github.com/nahamsec)
+
+\* This code is created for personal use. But feel free to try it out
+
+\* I'm not very good at bash, please point out any weird quirks that could use some improvements ♥
+
 ## Setup
 
 **Bash one-line setup. Installs recon-scripts to $HOME/.recon-scripts**
@@ -71,7 +77,9 @@ vim vars.sh
 **Run predefined scans**
 ```sh
 cd .recon_scripts
-$ scans/sweep.sh
+$ scans/sweep.sh # Scan all targets in recon folder
+$ scans/snipe.sh tesla shopify # Probe and quick scan
+$ scans/bombard.sh shopify # Comprehensive scan
 ```
 
 **Or execute individual functions like so:**
@@ -84,9 +92,11 @@ $ take_screenshots path/to/target
 ```
 
 ## TODO
+- Configure API key inclusion to subdomain enumerations
 - Monitor interesting files and web pages for changes
 - Show GitHub dorking links
 - Setup port scanning using `dnmasscan`, `masscan`, and `nmap`
 - Support multithreading
-- Add scaffolding script
+- Add script for scaffolding directories
 - Add reporting
+- Integrate custom `nuclei` workflows

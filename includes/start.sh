@@ -12,16 +12,26 @@ echo -e "${BPurple}
 echo -e "${BPurple}Version:${Reset} $(cat "$HOME/.recon-scripts/VERSION") "
 echo -e "${BPurple}Author:${Reset}  tedm.infosec"
 # echo -e "${BPurple}Contributors:${Reset} Your name here!"
+echo ""
 
-sleep 2
+sleep 1
 
 if [ ! -d "$TARGETS_DIR" ]; then
     echo -e "${Red}Directory '$TARGETS_DIR' does not exist${Reset}"
     exit 0
 fi
 
-echo -e "$Info Targets directory: $TARGETS_DIR"
-echo -e "$Info Targets found:"
-echo -e "$(ls $TARGETS_DIR)"
+if [ "$#" -gt 0 ]; then
+    for target in $@; do
+        if [ ! -d "$TARGETS_DIR/$target" ]; then
+            echo -e "${Red}$target is not a valid target in $TARGETS_DIR${Reset}"
+            exit 0
+        fi
+    done
+    SELECTED_TARGETS=$@
+fi
 
-cd $TARGETS_DIR
+echo -e "$Info Directory containing targets: $TARGETS_DIR"
+if [ ! -z $SELECTED_TARGETS ]; then
+    echo -e "$Info Selected targets: $SELECTED_TARGETS"
+fi
