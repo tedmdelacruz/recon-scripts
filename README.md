@@ -71,7 +71,9 @@ vim vars.sh
 **Run predefined scans**
 ```sh
 cd .recon_scripts
-$ scans/sweep.sh
+$ scans/sweep.sh # Scan all targets in recon folder
+$ scans/snipe.sh tesla shopify # Probe and quick scan
+$ scans/bombard.sh shopify # Comprehensive scan
 ```
 
 **Or execute individual functions like so:**
@@ -84,9 +86,11 @@ $ take_screenshots path/to/target
 ```
 
 ## TODO
+- Configure API key inclusion to subdomain enumerations
 - Monitor interesting files and web pages for changes
 - Show GitHub dorking links
 - Setup port scanning using `dnmasscan`, `masscan`, and `nmap`
 - Support multithreading
 - Add script for scaffolding directories
 - Add reporting
+- Integrate custom `nuclei` workflows
