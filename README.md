@@ -6,7 +6,7 @@
                                               /_/                
 ```
 
-![v0.2.0](https://img.shields.io/badge/version-0.2.0-brightgreen?style=for-the-badge)
+![v0.2.0](https://img.shields.io/badge/version-0.2.0-brightgreen?style=flat)
                                                                                                      
 # A simple recon framework for bug bounty hunting
 
@@ -55,25 +55,26 @@ targets
 
 ## Setup
 
-# Bash one-line setup. Installs recon-scripts to $HOME/.recon-scripts
+**Bash one-line setup. Installs recon-scripts to $HOME/.recon-scripts**
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/tedmdelacruz/recon-scripts/master/configure)
 ```
 
-# Initialize a vars.sh from vars.sh.example
+**Initialize a vars.sh from vars.sh.example**
+```
 cd .recon-scripts
 cp vars.sh.example vars.sh
 vim vars.sh
 ```
 
-# Usage:
-1. Run predefined scans
+## Usage:
+**Run predefined scans**
 ```sh
 cd .recon_scripts
 $ scans/sweep.sh
 ```
 
-2. Or execute individual functions like so:
+**Or execute individual functions like so:**
 ```sh
 $ enumerate_subdomains domain.com path/to/targets_dir/target
 $ probe_subdomains path/to/target
@@ -88,3 +89,4 @@ $ take_screenshots path/to/target
 - Setup port scanning using `dnmasscan`, `masscan`, and `nmap`
 - Support multithreading
 - Add scaffolding script
+- Add reporting
