@@ -55,7 +55,7 @@ targets
 
 \* Inspired by [lazyrecon](https://github.com/nahamsec/lazyrecon) by [nahamsec](https://github.com/nahamsec)
 
-\* Warning: this code was originally created for personal use
+\* This code is created for personal use. But feel free to try it out
 
 \* I'm not very good at bash, please point out any weird quirks that could use some improvements ♥
 
