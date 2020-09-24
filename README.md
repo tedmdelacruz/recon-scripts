@@ -47,11 +47,12 @@ targets
 
 ## Setup
 
-```
+```sh
+# Bash one-liner. Installs recon-scripts to $HOME/.recon-scripts
 bash <(curl -s https://raw.githubusercontent.com/tedmdelacruz/recon-scripts/master/configure)
 
 # Initialize a vars.sh from vars.sh.example
-cd .recon-scripts/includes
+cd .recon-scripts
 cp vars.sh.example vars.sh
 vim vars.sh
 ```
