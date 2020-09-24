@@ -6,7 +6,7 @@
                                               /_/                
 ```
 
-![v0.1.0](https://img.shields.io/badge/version-0.1.0-brightgreen?style=for-the-badge&logo=python)
+![v0.2.0](https://img.shields.io/badge/version-0.2.0-brightgreen?style=for-the-badge&logo=python)
                                                                                                      
 # Personal recon framework for bug bounty hunting
 

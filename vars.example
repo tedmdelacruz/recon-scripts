@@ -1,3 +1,14 @@
+# Path to targets/ directory containing your targets
+# Each target should be a directory with at least a domains.txt to get things started
+# The targets folder should look something like this:
+# targets/
+#   tesla/
+#       └── domains.txt
+#   shopify/
+#       └── domains.txt
+TARGETS_DIR="$HOME/paths/to/targets"
+
+# Tooling paths
 CHROME_PATH=path/to/chrome
 CLOUD_ENUM_PATH="$HOME/path/to/cloud_enum/cloud_enum.py"
 SUBLIST3R_PATH="$HOME/path/to/sublist3r/sublist3r.py"

@@ -1,7 +1,9 @@
 #!/bin/bash
 
+source "$HOME/.recon-scripts/vars.sh"
+
 target_name=$(basename "$1")
-echo "Probing subdomains of $target_name using httpx..."
+echo -e "$Run Probing subdomains of $target_name using httpx..."
 httpx -verbose -l "$1/subdomains.txt" -o "$1/new_httpx.txt"
 cat "$1/new_httpx.txt" >> "$1/httpx.txt"
 sort -u -o "$1/httpx.txt" "$1/httpx.txt" 

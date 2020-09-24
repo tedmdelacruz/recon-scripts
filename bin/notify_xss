@@ -12,5 +12,5 @@ if [ -f "$1/$2.txt" ]; then
     https://slack.com/api/files.upload
     echo ""
 else
-    echo "No XSS detected in $1/$2.txt"
+    echo -e "$Info No XSS detected in $1/$2.txt"
 fi

@@ -11,12 +11,12 @@ if [ -z $1 ] || [ -z $2 ]; then
     usage
 fi
 
-echo "Enumerating subdomains of $1 using Sublist3r..."
-python3 $SUBLIST3R_PATH -o "$2/sublist3r.txt" -d $1 || true
+echo -e "$Run Enumerating subdomains of $1 using Sublist3r..."
+python3 $SUBLIST3R_PATH -silent -o "$2/sublist3r.txt" -d $1 || true
 if [[ -f "$2/sublist3r.txt" ]]; then
     cat "$2/sublist3r.txt" >> "$2/subdomains.txt"
 fi
-echo "Enumerating subdomains of $1 using SubDomainizer..."
+echo -e "$Run Enumerating subdomains of $1 using SubDomainizer..."
 python3 $SUBDOMAINIZER_PATH -u $1 -o "$2/subdomainizer.txt" || true
 if [[ -f "$2/subdomainizer.txt" ]]; then
     cat "$2/subdomainizer.txt" >> "$2/subdomains.txt"

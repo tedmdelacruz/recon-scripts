@@ -3,6 +3,6 @@
 source "$HOME/.recon-scripts/vars.sh"
 
 target_name=$(basename "$1")
-echo "Checking for possible leaked secrets of $target_name on GitHub using githound..."
+echo -e "$Run Checking for possible leaked secrets of $target_name on GitHub using githound..."
 git-hound --dig-files --dig-commits --many-results --threads 100 \
 --subdomain-file "$1/subdomains.txt" | tee "$1/githound.txt"

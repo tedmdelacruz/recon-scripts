@@ -7,7 +7,7 @@ if [[ ! -d $nuclei_dir ]]; then
     mkdir $nuclei_dir
 fi
 target_name=$(basename "$1")
-echo "Scanning for low-hanging issues of $target_name assets using nuclei..."
+echo -e "$Run Scanning for low-hanging issues of $target_name assets using nuclei..."
 nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/cves" -o "$nuclei_dir/cves.txt"
 nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/subdomain-takeover" -o "$nuclei_dir/subdomain-takeover.txt"
 nuclei -pbar -l "$1/httpx.txt" -t "$NUCLEI_TEMPLATES_PATH/default-credentials" -o "$nuclei_dir/default-credentials.txt"
