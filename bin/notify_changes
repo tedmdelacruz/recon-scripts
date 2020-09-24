@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$RECON_SCRIPTS_PATH/includes/vars.sh"
+source "$HOME/.recon-scripts/vars.sh"
 
 target_name=$(basename "$1")
 if [ -s "$1/$2.diff" ]; then
@@ -12,5 +12,5 @@ if [ -s "$1/$2.diff" ]; then
     https://slack.com/api/files.upload
     echo ""
 else
-    echo "No changes detected in $1/$2.txt"
+    echo -e "$Info No changes detected in $1/$2.txt"
 fi

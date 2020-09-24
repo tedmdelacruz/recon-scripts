@@ -6,9 +6,9 @@
                                               /_/                
 ```
 
-![v0.1.0](https://img.shields.io/badge/version-0.1.0-brightgreen?style=for-the-badge&logo=python)
+![v0.2.0](https://img.shields.io/badge/version-0.2.0-brightgreen?style=for-the-badge&logo=python)
                                                                                                      
-# Personal recon framework for bug bounty hunting
+# A simple recon framework for bug bounty hunting
 
 - Enumerate subdomains using [Sublist3r](https://github.com/aboul3la/Sublist3r) and [Subdominizer](https://github.com/nsonaniya2010/SubDomainizer)
 - Probe subdomains using [httpx](https://github.com/projectdiscovery/httpx)
@@ -45,13 +45,16 @@ targets
 .
 ```
 
+![Sample](https://i.imgur.com/whOSnyq.png)
+
 ## Setup
 
-```
+```sh
+# Bash one-liner. Installs recon-scripts to $HOME/.recon-scripts
 bash <(curl -s https://raw.githubusercontent.com/tedmdelacruz/recon-scripts/master/configure)
 
 # Initialize a vars.sh from vars.sh.example
-cd .recon-scripts/includes
+cd .recon-scripts
 cp vars.sh.example vars.sh
 vim vars.sh
 ```
@@ -61,14 +64,13 @@ vim vars.sh
 ```sh
 cd recon_scripts
 # Note: target_dir requires a domains.txt file
-$ scans/sweep.sh path/to/targets_dir
-$ scans/snipe.sh path/to/targets_dir/target
+$ scans/sweep.sh
+$ scans/snipe.sh target_in_targets_directory
 ```
 
 2. Or execute individual functions like so:
 ```sh
-$ source vars.sh; source functions.sh;
-$ enumerate_subdomains path/to/target
+$ enumerate_subdomains domain.com path/to/targets_dir/target
 $ probe_subdomains path/to/target
 $ cloud_bucket_enum path/to/target
 $ nuclei_scan path/to/target
@@ -78,3 +80,5 @@ $ take_screenshots path/to/target
 ## TODO
 - Monitor interesting files and web pages for changes
 - Show GitHub dorking links
+- Setup port scanning using `dnmasscan`, `masscan`, and `nmap`
+- Support multithreading
