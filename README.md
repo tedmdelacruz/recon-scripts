@@ -64,8 +64,8 @@ vim vars.sh
 ```sh
 cd recon_scripts
 # Note: target_dir requires a domains.txt file
-$ scans/sweep.sh path/to/targets_dir
-$ scans/snipe.sh path/to/targets_dir/target
+$ scans/sweep.sh
+$ scans/snipe.sh target_in_targets_directory
 ```
 
 2. Or execute individual functions like so:
