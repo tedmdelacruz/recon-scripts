@@ -6,7 +6,7 @@
 
 set -e
 
-source "$HOME/.recon-scripts/includes/start.sh"
+source "$HOME/.recon-scripts/includes/init.sh"
 
 if [ -z $SELECTED_TARGETS ]; then
     echo ""

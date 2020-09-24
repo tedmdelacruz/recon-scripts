@@ -82,6 +82,12 @@ $ scans/snipe.sh tesla shopify # Probe and quick scan
 $ scans/bombard.sh shopify # Comprehensive scan
 ```
 
+**Set up crontab**
+```sh
+$ crontab -e
+30 21 * * *  /home/tedm/.recon-scripts/cron/daily.sh
+```
+
 **Or execute individual functions like so:**
 ```sh
 $ enumerate_subdomains domain.com path/to/targets_dir/target

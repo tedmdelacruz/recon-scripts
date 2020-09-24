@@ -1,25 +1,17 @@
 #!/bin/bash
+# Crawls all targets in the targets directory
+# and scans each target for basic XSS.
+# Also notifies for any changes in JS URLs
 
 set -e
 
-TARGETS_DIR=$1
-if [ ! -d "$TARGETS_DIR" ]; then
-    echo "Directory '$TARGETS_DIR' does not exist"
-    exit 0
-fi
-
-echo "Targets directory: $TARGETS_DIR"
-echo "Targets found:"
-echo "$(ls $TARGETS_DIR)"
+source "$HOME/.recon-scripts/includes/init.sh"
 
 cd $TARGETS_DIR
-
 for target in *; do 
     [[ -d $target ]] || continue
     target_dir="$TARGETS_DIR/$target"
-    if [[ ! -f "$target_dir/httpx.txt" ]]; then
-        probe_subdomains $target_dir
-    fi
+
     crawl_urls $target_dir
     xss_basic $target_dir
     notify_xss $target_dir "basic_xss" $SLACK_ALERT_XSS_CHANNEL_ID
@@ -27,6 +19,4 @@ for target in *; do
     crawl_js $target_dir
     notify_changes $target_dir "js" $SLACK_ALERT_JS_FILES_CHANNEL_ID
 done
-
-echo ""
-echo "Done."
+find . -size 0 -delete

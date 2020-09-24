@@ -3,7 +3,7 @@
 
 set -e
 
-includes/start.sh
+includes/init.sh
 
 for target in *; do 
     [[ -d $target ]] || continue
