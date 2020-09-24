@@ -8,7 +8,7 @@
 
 ![v0.2.0](https://img.shields.io/badge/version-0.2.0-brightgreen?style=for-the-badge&logo=python)
                                                                                                      
-# Personal recon framework for bug bounty hunting
+# A simple recon framework for bug bounty hunting
 
 - Enumerate subdomains using [Sublist3r](https://github.com/aboul3la/Sublist3r) and [Subdominizer](https://github.com/nsonaniya2010/SubDomainizer)
 - Probe subdomains using [httpx](https://github.com/projectdiscovery/httpx)
@@ -44,6 +44,8 @@ targets
 .
 .
 ```
+
+![Sample](https://i.imgur.com/whOSnyq.png)
 
 ## Setup
 
