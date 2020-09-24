@@ -3,7 +3,7 @@
 
 set -e
 
-source includes/start.sh
+source "$HOME/.recon-scripts/includes/start.sh"
 
 TARGET_DIR=$1
 if [[ -z $TARGET_DIR ]]; then

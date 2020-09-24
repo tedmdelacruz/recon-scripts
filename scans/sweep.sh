@@ -4,7 +4,7 @@
 
 set -e
 
-source includes/start.sh
+source "$HOME/.recon-scripts/includes/start.sh"
 for target in *; do 
     [[ -d $target ]] || continue
 
