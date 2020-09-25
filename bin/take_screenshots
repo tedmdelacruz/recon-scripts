@@ -8,4 +8,4 @@ if [[ ! -d $screenshots_dir ]]; then
 fi
 target_name=$(basename "$1")
 echo -e "$Run Taking screenshots of $target_name sites using aquatone..."
-cat "$1/httpx.txt" | aquatone -debug -ports=80,443 -resolution=800,600 -chrome-path=$CHROME_PATH -out $screenshots_dir
+cat "$1/httpx.txt" | aquatone  -debug -threads=5 -ports=80,443 -resolution=800,600 -chrome-path=$CHROME_PATH -out $screenshots_dir

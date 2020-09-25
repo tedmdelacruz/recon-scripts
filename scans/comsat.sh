@@ -1,5 +1,6 @@
 #!/bin/bash
-# Takes screenshots of webservers of selected targets
+# Takes screenshots of webservers 
+# and checks for GitHub leaks of selected targets
 
 set -e
 
@@ -16,6 +17,7 @@ for target in $SELECTED_TARGETS; do
 
     enumerate_subdomains $target_dir
     probe_subdomains $target_dir
+    git_scan $target_dir
     take_screenshots $target_dir
 done
 find . -size 0 -delete
