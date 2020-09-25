@@ -8,7 +8,7 @@ set -e
 
 source "$HOME/.recon-scripts/includes/init.sh"
 
-if [ -z $SELECTED_TARGETS ]; then
+if [ -z "$SELECTED_TARGETS" ]; then
     echo ""
     echo -e "${Red} Target(s) in $TARGETS_DIR must be provided${Reset}"
     exit 0

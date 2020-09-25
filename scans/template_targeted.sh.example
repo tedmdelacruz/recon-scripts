@@ -4,12 +4,12 @@
 set -e
 
 TARGET_DIR=$1
-if [[ -z $TARGET_DIR ]]; then
+if [ -z "$TARGET_DIR" ]; then
     echo "A valid directory must be provided"
     exit 0
 fi
 
-if [[ ! -d $TARGET_DIR ]]; then
+if [ ! -d $TARGET_DIR ]; then
     echo "$TARGET_DIR is not a valid directory"
     exit 0
 fi
