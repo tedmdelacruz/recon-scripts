@@ -32,6 +32,6 @@ if [ "$#" -gt 0 ]; then
 fi
 
 echo -e "$Info Directory containing targets: $TARGETS_DIR"
-if [ ! -z $SELECTED_TARGETS ]; then
+if [ ${#SELECTED_TARGETS} -gt 0 ]; then
     echo -e "$Info Selected targets: $SELECTED_TARGETS"
 fi
