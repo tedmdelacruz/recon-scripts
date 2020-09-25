@@ -11,12 +11,7 @@ for target in *; do
     target_dir="$TARGETS_DIR/$target"
 
     # Add your tooling on all of your targets here
-    # domains_file="$target_dir/domains.txt"
-    # while IFS= read -r domain; do
-    #     [[ ! -z $domain ]] || continue
-    #     enumerate_subdomains $domain $target_dir
-    # done < "$domains_file"
-
+    # enumerate_subdomains $domain $target_dir
     # probe_subdomains $target_dir
     # cloud_bucket_enum $target_dir
     # crawl_urls $target_dir

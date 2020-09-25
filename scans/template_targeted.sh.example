@@ -14,18 +14,7 @@ if [[ ! -d $TARGET_DIR ]]; then
     exit 0
 fi
 
-domains_file="$TARGET_DIR/domains.txt"
-if [[ ! -f $domains_file ]]; then
-    echo "domains.txt not found in $TARGET_DIR"
-    exit 0
-fi
-
-# Add your tooling on a specific target here
-# while IFS= read -r domain; do
-#     [[ ! -z $domain ]] || continue
-#     enumerate_subdomains $domain $TARGET_DIR
-# done < "$domains_file"
-
+# enumerate_subdomains $TARGET_DIR
 # probe_subdomains $TARGET_DIR
 # xss_strike $TARGET_DIR
 # cloud_bucket_enum $TARGET_DIR

@@ -14,6 +14,7 @@ fi
 for target in $SELECTED_TARGETS; do
     target_dir="$TARGETS_DIR/$target"
 
+    enumerate_subdomains $target_dir
     probe_subdomains $target_dir
     take_screenshots $target_dir
 done

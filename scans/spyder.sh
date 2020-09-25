@@ -13,7 +13,8 @@ fi
 
 for target in $SELECTED_TARGETS; do
     target_dir="$TARGETS_DIR/$target"
-    
+
+    enumerate_subdomains $target_dir
     probe_subdomains $target_dir
     crawl_urls $target_dir
     crawl_js $target_dir

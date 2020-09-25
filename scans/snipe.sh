@@ -12,20 +12,10 @@ if [ -z $SELECTED_TARGETS ]; then
 fi
 
 for target in $SELECTED_TARGETS; do
-    target_dir="$TARGETS_DIR/$target"
     echo -e "$Run Sniping $target..."
+    target_dir="$TARGETS_DIR/$target"
 
-    domains_file="$target_dir/domains.txt"
-    if [[ ! -f $domains_file ]]; then
-        echo -e "$Error domains.txt not found in $target_dir"
-        exit 0
-    fi
-
-    while IFS= read -r domain; do
-        [[ ! -z $domain ]] || continue
-        enumerate_subdomains $domain $target_dir
-    done < "$domains_file"
-
+    enumerate_subdomains $target_dir
     probe_subdomains $target_dir
     cloud_bucket_enum $target_dir
     crawl_urls $target_dir

@@ -1,25 +1,29 @@
 #!/bin/bash
 
+set -e
+
 source "$HOME/.recon-scripts/vars.sh"
 
-usage(){
-    echo "Usage: enumerate_subdomains domain.com path/to/output"
-    exit 1
-}
-
-if [ -z $1 ] || [ -z $2 ]; then
-    usage
+TARGET_DIR=$1
+domains_file="$TARGET_DIR/domains.txt"
+if [[ ! -f $domains_file ]]; then
+    echo -e "$Error domains.txt not found in $TARGET_DIR"
+    exit 0
 fi
 
-echo -e "$Run Enumerating subdomains of $1 using Sublist3r..."
-python3 $SUBLIST3R_PATH -o "$2/sublist3r.txt" -d $1 || true
-if [[ -f "$2/sublist3r.txt" ]]; then
-    cat "$2/sublist3r.txt" >> "$2/subdomains.txt"
-fi
-echo -e "$Run Enumerating subdomains of $1 using SubDomainizer..."
-python3 $SUBDOMAINIZER_PATH -u $1 -o "$2/subdomainizer.txt" || true
-if [[ -f "$2/subdomainizer.txt" ]]; then
-    cat "$2/subdomainizer.txt" >> "$2/subdomains.txt"
-fi
-sort -u -o "$2/subdomains.txt" "$2/subdomains.txt"
-rm -f "$2/sublist3r.txt $2/subdomainizer.txt"
+while IFS= read -r domain; do
+    [[ ! -z $domain ]] || continue
+
+    echo -e "$Run Enumerating subdomains of $domain using Sublist3r..."
+    python3 $SUBLIST3R_PATH -o "$TARGET_DIR/sublist3r.txt" -d $domain || true
+    if [[ -f "$TARGET_DIR/sublist3r.txt" ]]; then
+        cat "$TARGET_DIR/sublist3r.txt" >> "$TARGET_DIR/subdomains.txt"
+    fi
+    echo -e "$Run Enumerating subdomains of $domain using SubDomainizer..."
+    python3 $SUBDOMAINIZER_PATH -u $domain -o "$TARGET_DIR/subdomainizer.txt" || true
+    if [[ -f "$TARGET_DIR/subdomainizer.txt" ]]; then
+        cat "$TARGET_DIR/subdomainizer.txt" >> "$TARGET_DIR/subdomains.txt"
+    fi
+    sort -u -o "$TARGET_DIR/subdomains.txt" "$TARGET_DIR/subdomains.txt"
+    rm -f "$TARGET_DIR/sublist3r.txt $TARGET_DIR/subdomainizer.txt"
+done < "$domains_file"
