@@ -17,5 +17,6 @@ for target in *; do
     crawl_urls $target_dir
     crawl_js $target_dir
     take_screenshots $target_dir
+    notify_general "Done sweeping target: $target"
 done
 find . -size 0 -delete

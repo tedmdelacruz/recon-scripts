@@ -25,5 +25,6 @@ for target in $SELECTED_TARGETS; do
     nuclei_scan $target_dir
     xss_advanced $target_dir
     take_screenshots $target_dir
+    notify_general "Done running bombardment on target: $target"
 done
 find . -size 0 -delete
