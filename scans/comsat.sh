@@ -17,6 +17,7 @@ for target in $SELECTED_TARGETS; do
 
     enumerate_subdomains $target_dir
     probe_subdomains $target_dir
+    cloud_bucket_enum $target_dir
     git_scan $target_dir
     take_screenshots $target_dir
     notify_general "Done running comsat on target: $target"
