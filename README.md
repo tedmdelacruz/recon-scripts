@@ -7,6 +7,8 @@
 ```
 
 ![v0.2.2](https://img.shields.io/badge/version-0.2.2-brightgreen?style=flat)
+
+[![asciicast](https://asciinema.org/a/QJTDlVbRxLNhsSbe5MBqKhENg.svg)](https://asciinema.org/a/QJTDlVbRxLNhsSbe5MBqKhENg)
                                                                                                      
 # A simple recon framework for bug bounty hunting
 

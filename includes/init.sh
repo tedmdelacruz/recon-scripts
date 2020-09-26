@@ -33,7 +33,7 @@ fi
 
 echo -e "$Info Directory containing targets: $TARGETS_DIR"
 if [ ! -z "$SELECTED_TARGETS" ]; then
-    echo -e "$Info Selected targets: $SELECTED_TARGETS"
+    echo -e "$Info Selected targets in $TARGETS_DIR: $SELECTED_TARGETS"
 fi
 
 delete_empty_files() {
