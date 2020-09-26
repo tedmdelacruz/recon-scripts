@@ -6,7 +6,7 @@
                                               /_/                
 ```
 
-![v0.2.1](https://img.shields.io/badge/version-0.2.1-brightgreen?style=flat)
+![v0.2.2](https://img.shields.io/badge/version-0.2.2-brightgreen?style=flat)
                                                                                                      
 # A simple recon framework for bug bounty hunting
 
