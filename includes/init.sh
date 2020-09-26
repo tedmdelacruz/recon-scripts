@@ -35,3 +35,7 @@ echo -e "$Info Directory containing targets: $TARGETS_DIR"
 if [ ! -z "$SELECTED_TARGETS" ]; then
     echo -e "$Info Selected targets: $SELECTED_TARGETS"
 fi
+
+delete_empty_files() {
+    find $1 -size 0 -delete
+}

@@ -23,5 +23,5 @@ for target in $SELECTED_TARGETS; do
     xss_basic $target_dir
     take_screenshots $target_dir
     notify_general "Done sniping target: $target"
+    delete_empty_files $target_dir
 done
-find . -size 0 -delete

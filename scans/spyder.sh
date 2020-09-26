@@ -19,5 +19,5 @@ for target in $SELECTED_TARGETS; do
     crawl_urls $target_dir
     crawl_js $target_dir
     notify_general "Done crawling target: $target"
+    delete_empty_files $target_dir
 done
-find . -size 0 -delete
