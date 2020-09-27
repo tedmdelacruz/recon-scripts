@@ -11,7 +11,7 @@ fi
 while IFS= read -r webpage; do
     logfile="$1/dir_brute/${site//[\/,:]/_}.txt"
     ffuf -w "$SECLISTS_PATH/Discovery/Web-Content/common.txt" \
-    -mc 200 -fs 42 -c -v -sf -p 0.2-1.5 \
+    -mc 200 -c -v -sf -p 0.2-1.5 \
     -o $logfile \
     -u "$webpage/FUZZ"
 done < "$1/httpx.txt"
