@@ -17,14 +17,9 @@ fi
 for target in $SELECTED_TARGETS; do
     target_dir="$TARGETS_DIR/$target"
 
-    enumerate_subdomains $domain $target_dir
-    probe_subdomains $target_dir
-    cloud_bucket_enum $target_dir
-    crawl_urls $target_dir
-    crawl_js $target_dir
     nuclei_scan $target_dir
+    xss_basic $target_dir
     xss_advanced $target_dir
-    take_screenshots $target_dir
     notify_general "Done running bombardment on target: $target"
     delete_empty_files $target_dir
 done
