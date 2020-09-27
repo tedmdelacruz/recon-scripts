@@ -9,7 +9,8 @@
 TARGETS_DIR="$HOME/paths/to/targets"
 
 # Tooling paths
-CHROME_PATH=path/to/chrome
+CHROME_PATH="path/to/chrome"
+SECLISTS_PATH="path/to/SecLists-master"
 CLOUD_ENUM_PATH="$HOME/path/to/cloud_enum/cloud_enum.py"
 SUBLIST3R_PATH="$HOME/path/to/sublist3r/sublist3r.py"
 SUBDOMAINIZER_PATH="$HOME/path/to/subdomainizer/SubDomainizer.py"

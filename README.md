@@ -19,6 +19,7 @@
 - Take screenshots using [Aquatone](https://github.com/michenriksen/aquatone)
 - Asset discovery using [hakrawler](https://github.com/hakluke/hakrawler) 
 - Scan for XSS from asset discovery using [XSStrike](https://github.com/s0md3v/XSStrike)
+- Directory bruteforcing using [ffuf](https://github.com/ffuf/ffuf) 
 - Notify for new URLs or JS files discovered via Slack
 
 **The idea is to turn this:**

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source "$HOME/.recon-scripts/vars.sh"
+
+target_name=$(basename "$1")
+echo -e "$Run Directory bruteforcing directories of $target_name webpages using ffuf..."
+
+if [[ ! -d "$1/dir_brute" ]]; then
+    mkdir "$1/dir_brute"
+fi
+while IFS= read -r webpage; do
+    logfile="$1/dir_brute/${site//[\/,:]/_}.txt"
+    ffuf -w "$SECLISTS_PATH/Discovery/Web-Content/common.txt" \
+    -mc 200 -fs 42 -c -v -sf -p 0.2-1.5 \
+    -o $logfile \
+    -u "$webpage/FUZZ"
+done < "$1/httpx.txt"
