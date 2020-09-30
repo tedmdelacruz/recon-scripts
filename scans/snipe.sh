@@ -22,6 +22,6 @@ for target in $SELECTED_TARGETS; do
     crawl_js $target_dir
     xss_basic $target_dir
     take_screenshots $target_dir
-    notify_general "Done sniping target: $target"
+    notify_general "Done sniping :dart: target: $target"
     delete_empty_files $target_dir
 done

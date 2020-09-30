@@ -20,6 +20,6 @@ for target in $SELECTED_TARGETS; do
     cloud_bucket_enum $target_dir
     git_scan $target_dir
     take_screenshots $target_dir
-    notify_general "Done running comsat on target: $target"
+    notify_general "Done running comsat :satellite: on target: $target"
     delete_empty_files $target_dir
 done

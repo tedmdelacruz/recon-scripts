@@ -9,7 +9,7 @@ if [[ ! -d "$1/dir_brute" ]]; then
     mkdir "$1/dir_brute"
 fi
 while IFS= read -r webpage; do
-    logfile="$1/dir_brute/${webpage//[\/,:]/_}.txt"
+    logfile="$1/dir_brute/${webpage//[\/,:]/_}.html"
     ffuf -w "$SECLISTS_PATH/Discovery/Web-Content/common.txt" \
     -mc 200 -c -v -sf -p 0.2-1.5 \
     -o $logfile -of html \

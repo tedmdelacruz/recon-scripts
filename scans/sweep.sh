@@ -17,6 +17,6 @@ for target in *; do
     crawl_urls $target_dir
     crawl_js $target_dir
     take_screenshots $target_dir
-    notify_general "Done sweeping target: $target"
+    notify_general "Done sweeping :satellite_antenna: target: $target"
     delete_empty_files $target_dir
 done

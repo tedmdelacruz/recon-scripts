@@ -18,6 +18,6 @@ for target in $SELECTED_TARGETS; do
     probe_subdomains $target_dir
     crawl_urls $target_dir
     crawl_js $target_dir
-    notify_general "Done crawling target: $target"
+    notify_general "Done crawling :spider: target: $target"
     delete_empty_files $target_dir
 done
