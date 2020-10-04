@@ -4,6 +4,6 @@ source "$HOME/.recon-scripts/vars.sh"
 
 target_name=$(basename "$1")
 echo -e "$Run Checking cloud buckets of $target_name using cloud_enum..."
-python3 $CLOUD_ENUM_PATH -kf "$1/subdomains.txt" -l "$1/cloud_enum.txt" || true
+python3 $CLOUD_ENUM_PATH -m $CLOUD_ENUM_WORDLIST_PATH -kf "$1/subdomains.txt" -l "$1/cloud_enum.txt" || true
 echo -e "$Run Checking S3 buckets of $target_name using S3Scanner..."
 python3 $S3SCANNER_PATH -o "$1/s3scanner.txt" "$1/subdomains.txt" || true
