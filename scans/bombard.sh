@@ -1,7 +1,7 @@
 #!/bin/bash
 # Comprehensive scan against a target
-# Includes a comprehensive nuclei vulnerability scan
-# and a XSStrike scan against assets
+# Includes a nuclei vulnerability scan
+# and an XSStrike scan against assets
 # Quite noisy, can risk getting IP-blocked by a WAF
 
 set -e
