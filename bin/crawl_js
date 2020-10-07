@@ -2,7 +2,12 @@
 
 source "$HOME/.recon-scripts/vars.sh"
 
+if [ ! -f "$1/webservers.txt" ]; then
+    echo -e "$Error webservers.txt not found. Skipping..."
+    exit 0
+fi
+
 target_name=$(basename "$1")
 echo -e "$Run Fetching JS files of $target_name using hakrawler..."
-cat "$1/httpx.txt" | hakrawler -plain -js -insecure -depth 1 > "$1/new_js.txt"
+cat "$1/webservers.txt" | hakrawler -plain -js -insecure -depth 1 > "$1/new_js.txt"
 handle_diff $1 "js"

@@ -6,7 +6,7 @@ source "$HOME/.recon-scripts/vars.sh"
 
 TARGET_DIR=$1
 domains_file="$TARGET_DIR/domains.txt"
-if [[ ! -f $domains_file ]]; then
+if [ ! -f $domains_file ]; then
     echo -e "$Error domains.txt not found in $TARGET_DIR"
     exit 0
 fi
@@ -16,12 +16,12 @@ while IFS= read -r domain; do
 
     echo -e "$Run Enumerating subdomains of $domain using Sublist3r..."
     python3 $SUBLIST3R_PATH -o "$TARGET_DIR/sublist3r.txt" -d $domain || true
-    if [[ -f "$TARGET_DIR/sublist3r.txt" ]]; then
+    if [ -f "$TARGET_DIR/sublist3r.txt" ]; then
         cat "$TARGET_DIR/sublist3r.txt" >> "$TARGET_DIR/subdomains.txt"
     fi
     echo -e "$Run Enumerating subdomains of $domain using SubDomainizer..."
     python3 $SUBDOMAINIZER_PATH -u $domain -o "$TARGET_DIR/subdomainizer.txt" || true
-    if [[ -f "$TARGET_DIR/subdomainizer.txt" ]]; then
+    if [ -f "$TARGET_DIR/subdomainizer.txt" ]; then
         cat "$TARGET_DIR/subdomainizer.txt" >> "$TARGET_DIR/subdomains.txt"
     fi
     sort -u -o "$TARGET_DIR/subdomains.txt" "$TARGET_DIR/subdomains.txt"

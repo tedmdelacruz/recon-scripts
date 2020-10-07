@@ -16,6 +16,6 @@ for target in $SELECTED_TARGETS; do
 
     cloud_bucket_enum $target_dir
     git_scan $target_dir
-    notify_general "Done dumpster diving :recycle: on target: $target"
+    notify_general ":recycle: Done dumpster diving on target: $target"
     delete_empty_files $target_dir
 done

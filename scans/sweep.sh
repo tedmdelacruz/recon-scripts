@@ -1,6 +1,9 @@
 #!/bin/bash
-# Scans all targets in the targets directory
-# Good for obtaining initial recon against a large number of targets
+# Initial scan for all targets in the targets directory
+# Populates the following:
+# - subdomains.txt
+# - webservers.txt
+# - urls.txt
 
 set -e
 
@@ -13,10 +16,7 @@ for target in *; do
 
     enumerate_subdomains $target_dir
     probe_subdomains $target_dir
-    cloud_bucket_enum $target_dir
     crawl_urls $target_dir
-    crawl_js $target_dir
-    take_screenshots $target_dir
-    notify_general "Done sweeping :satellite_antenna: target: $target"
+    notify_general ":satellite_antenna: Done sweeping target: $target"
     delete_empty_files $target_dir
 done

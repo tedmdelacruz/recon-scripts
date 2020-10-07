@@ -2,6 +2,11 @@
 
 source "$HOME/.recon-scripts/vars.sh"
 
+if [ ! -f "$1/webservers.txt" ]; then
+    echo -e "$Error webservers.txt not found. Skipping..."
+    exit 0
+fi
+
 target_name=$(basename "$1")
 echo -e "$Run Directory bruteforcing directories of $target_name webpages using ffuf..."
 
@@ -14,4 +19,4 @@ while IFS= read -r webpage; do
     -mc 200 -c -v -sf -p 0.2-1.5 \
     -o $logfile -of html \
     -u "$webpage/FUZZ"
-done < "$1/httpx.txt"
+done < "$1/webservers.txt"
