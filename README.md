@@ -108,4 +108,3 @@ $ take_screenshots path/to/target
 - Support multithreading
 - Add script for scaffolding directories
 - Add reporting
-- Integrate custom `nuclei` workflows
