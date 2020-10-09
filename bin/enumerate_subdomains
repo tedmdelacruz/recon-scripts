@@ -24,6 +24,10 @@ while IFS= read -r domain; do
     if [ -f "$TARGET_DIR/subdomainizer.txt" ]; then
         cat "$TARGET_DIR/subdomainizer.txt" >> "$TARGET_DIR/subdomains.txt"
     fi
+    if [ ! -f "$TARGET_DIR/subdomains.txt" ]; then
+        echo -e "$Error No subdomains found for $domain"
+        exit 0
+    fi
     sort -u -o "$TARGET_DIR/subdomains.txt" "$TARGET_DIR/subdomains.txt"
     rm -f "$TARGET_DIR/sublist3r.txt $TARGET_DIR/subdomainizer.txt"
 done < "$domains_file"
