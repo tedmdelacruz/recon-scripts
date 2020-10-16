@@ -15,6 +15,7 @@ fi
 for target in $SELECTED_TARGETS; do
     target_dir="$TARGETS_DIR/$target"
 
+    nuclei_scan $target_dir
     take_screenshots $target_dir
     notify_general ":satellite: Done running comsat on target: $target"
 done
