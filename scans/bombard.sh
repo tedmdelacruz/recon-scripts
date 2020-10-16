@@ -18,9 +18,8 @@ for target in $SELECTED_TARGETS; do
     target_dir="$TARGETS_DIR/$target"
 
     dir_brute $target_dir
-    nuclei_scan $target_dir
     xss_basic $target_dir
     xss_advanced $target_dir
-    notify_general "Done running bombardment :boom: on target: $target"
+    notify_general ":boom: Done running bombardment on target: $target"
     delete_empty_files $target_dir
 done

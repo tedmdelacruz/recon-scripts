@@ -2,10 +2,15 @@
 
 source "$HOME/.recon-scripts/vars.sh"
 
+if [ ! -f "$1/webservers.txt" ]; then
+    echo -e "$Error webservers.txt not found. Skipping..."
+    exit 0
+fi
+
 screenshots_dir="$1/screenshots"
 if [[ ! -d $screenshots_dir ]]; then
     mkdir $screenshots_dir
 fi
 target_name=$(basename "$1")
 echo -e "$Run Taking screenshots of $target_name sites using aquatone..."
-cat "$1/httpx.txt" | aquatone  -debug -threads=5 -ports=80,443 -resolution=800,600 -chrome-path=$CHROME_PATH -out $screenshots_dir
+cat "$1/webservers.txt" | aquatone  -debug -threads=5 -ports=80,443 -resolution=800,600 -chrome-path=$CHROME_PATH -out $screenshots_dir

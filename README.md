@@ -6,7 +6,7 @@
                                               /_/                
 ```
 
-![v0.2.2](https://img.shields.io/badge/version-0.2.2-brightgreen?style=flat)
+![v0.2.3](https://img.shields.io/badge/version-0.2.2-brightgreen?style=flat)
 
 [![asciicast](https://asciinema.org/a/QJTDlVbRxLNhsSbe5MBqKhENg.svg)](https://asciinema.org/a/QJTDlVbRxLNhsSbe5MBqKhENg)
                                                                                                      
@@ -40,7 +40,7 @@ targets
 │   ├── js.txt
 │   ├── githound.txt
 │   ├── cloud_enum.txt
-│   ├── httpx.txt
+│   ├── webservers.txt
 │   ├── domains.txt
 │   └── subdomains.txt
 ├── shopify
@@ -48,7 +48,7 @@ targets
 │   ├── urls.txt
 │   ├── js.txt
 │   ├── cloud_enum.txt
-│   ├── httpx.txt
+│   ├── webservers.txt
 │   ├── domains.txt
 │   └── subdomains.txt
 │
@@ -80,7 +80,7 @@ vim vars.sh
 **Run predefined scans**
 ```sh
 cd .recon_scripts
-$ scans/sweep.sh # Scan all targets in recon folder
+$ scans/sweep.sh # Initial scann of all targets in recon folder
 $ scans/snipe.sh tesla shopify # Probe and quick scan
 $ scans/bombard.sh shopify # Comprehensive scan
 ```
@@ -108,4 +108,3 @@ $ take_screenshots path/to/target
 - Support multithreading
 - Add script for scaffolding directories
 - Add reporting
-- Integrate custom `nuclei` workflows

@@ -2,6 +2,11 @@
 
 source "$HOME/.recon-scripts/vars.sh"
 
+if [ ! -f "$1/subdomains.txt" ]; then
+    echo -e "$Error subdomains.txt not found. Skipping..."
+    exit 0
+fi
+
 target_name=$(basename "$1")
 echo -e "$Run Checking for possible leaked secrets of $target_name on GitHub using githound..."
 git-hound --dig-files --dig-commits --many-results --threads 100 \

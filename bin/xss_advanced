@@ -2,6 +2,11 @@
 
 source "$HOME/.recon-scripts/vars.sh"
 
+if [ ! -f "$1/urls.txt" ]; then
+    echo -e "$Error urls.txt not found. Skipping..."
+    exit 0
+fi
+
 # Note: configure blind XSS payload in xsstrike/core/config.py
 target_name=$(basename "$1")
 echo -e "$Run Scanning for XSS on $target_name urls using xsstrike..."

@@ -2,11 +2,6 @@
 
 source "$HOME/.recon-scripts/vars.sh"
 
-if [ -z $1 ]; then
-    echo -e "$Error Message is required"
-    exit 0
-fi
-
 curl -X POST \
 -H "Content-type: application/json" \
 -H "Authorization: Bearer $SLACKBOT_TOKEN" \

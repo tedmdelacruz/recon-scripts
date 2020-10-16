@@ -1,9 +1,5 @@
 #!/bin/bash
-# Initial scan for all targets in the targets directory
-# Populates the following:
-# - subdomains.txt
-# - webservers.txt
-# - urls.txt
+# Comprehensive scan on all targets in the targets directory
 
 set -e
 
@@ -17,6 +13,11 @@ for target in *; do
     enumerate_subdomains $target_dir
     probe_subdomains $target_dir
     crawl_urls $target_dir
-    notify_general ":satellite_antenna: Done sweeping target: $target"
+    cloud_bucket_enum $target_dir
+    dir_brute $target_dir
+    nuclei_scan $target_dir
+    xss_basic $target_dir
+    xss_advanced $target_dir
+    notify_general ":boom: Done nuking target: $target"
     delete_empty_files $target_dir
 done

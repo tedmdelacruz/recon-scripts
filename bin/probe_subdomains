@@ -2,9 +2,14 @@
 
 source "$HOME/.recon-scripts/vars.sh"
 
+if [ ! -f "$1/subdomains.txt" ]; then
+    echo -e "$Error subdomains.txt not found. Skipping..."
+    exit 0
+fi
+
 target_name=$(basename "$1")
 echo -e "$Run Probing subdomains of $target_name using httpx..."
-httpx -verbose -l "$1/subdomains.txt" -o "$1/new_httpx.txt"
-cat "$1/new_httpx.txt" >> "$1/httpx.txt"
-sort -u -o "$1/httpx.txt" "$1/httpx.txt" 
-rm -f "$1/new_httpx.txt"
+httpx -verbose -l "$1/subdomains.txt" -o "$1/new_webservers.txt"
+cat "$1/new_webservers.txt" >> "$1/webservers.txt"
+sort -u -o "$1/webservers.txt" "$1/webservers.txt" 
+rm -f "$1/new_webservers.txt"
